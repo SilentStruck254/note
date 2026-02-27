@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>my little journal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Klee+One:wght@400;600&family=Patrick+Hand&family=Nunito:ital,wght@0,300;0,400;0,600;1,300&family=Zen+Kurenaido&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+<style>
+/* ============================
+   RESET & BASE
+   ============================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { font-size: 16px; }
+
+/* ============================
+   CSS VARIABLES
+   ============================ */
+
+/* THEME: NATURE CATS — Forest Dusk
+   Espresso Ember (#3A2A1E) base, Mossed Khaki (#998F70) accents,
+   Saddle Drift (#7C5E40) mid-tones, Desert Ecru (#E0CCA9) surfaces */
+:root {
+  --bg:       #3A2A1E;
+  --bg2:      #2a1e14;
+  --surf:     rgba(124, 94, 64, 0.35);
+  --surf2:    rgba(153, 143, 112, 0.18);
+  --a1:       #998F70;
+  --a2:       #7C5E40;
+  --a3:       rgba(153,143,112,0.18);
+  --text:     #E0CCA9;
+  --textm:    #c8b48e;
+  --textl:    #998F70;
+  --bdr:      rgba(153,143,112,0.35);
+  --shd:      rgba(0,0,0,0.35);
+  --ring:     rgba(153,143,112,0.3);
+  --line:     rgba(224,204,169,0.08);
+  --fn-h:     'Klee One', cursive;
+  --fn-b:     'Caveat', cursive;
+  --fn-ui:    'Nunito', sans-serif;
+  --r:        18px;
+}
+
+/* THEME: STUDY DESK — Rustwood
+   Rustwood Terra (#66301E) base, Desert Ecru (#E0CCA9) surfaces,
+   Saddle Drift (#7C5E40) borders, Espresso darks for depth */
+body.theme-desk {
+  --bg:       #66301E;
+  --bg2:      #4e2415;
+  --surf:     rgba(224, 204, 169, 0.15);
+  --surf2:    rgba(224, 204, 169, 0.22);
+  --a1:       #E0CCA9;
+  --a2:       #c8b48e;
+  --a3:       rgba(224,204,169,0.12);
+  --text:     #E0CCA9;
+  --textm:    #c8b48e;
+  --textl:    rgba(224,204,169,0.55);
+  --bdr:      rgba(224,204,169,0.25);
+  --shd:      rgba(0,0,0,0.3);
+  --ring:     rgba(224,204,169,0.22);
+  --line:     rgba(224,204,169,0.07);
+  --fn-h:     'Shadows Into Light Two', cursive;
+  --fn-b:     'Patrick Hand', cursive;
+}
+
+/* THEME: KAWAII BEAR — Saddle Bloom
+   Desert Ecru (#E0CCA9) base, Mossed Khaki (#998F70) accents,
+   Rustwood Terra (#66301E) pops, warm & creamy all over */
+body.theme-bear {
+  --bg:       #E0CCA9;
+  --bg2:      #d4bc96;
+  --surf:     rgba(255, 252, 244, 0.72);
+  --surf2:    rgba(255, 252, 244, 0.9);
+  --a1:       #7C5E40;
+  --a2:       #66301E;
+  --a3:       rgba(124,94,64,0.12);
+  --text:     #3A2A1E;
+  --textm:    #66301E;
+  --textl:    #998F70;
+  --bdr:      rgba(124,94,64,0.28);
+  --shd:      rgba(58,42,30,0.14);
+  --ring:     rgba(124,94,64,0.22);
+  --line:     rgba(58,42,30,0.1);
+  --fn-h:     'Caveat', cursive;
+  --fn-b:     'Zen Kurenaido', sans-serif;
+}
+
+/* ============================
+   BODY
+   ============================ */
+body {
+  font-family: var(--fn-ui);
+  background-color: var(--bg);
+  transition: background-color 0.5s;
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  min-height: 100vh;
+  background-image:
+    radial-gradient(ellipse 70% 40% at 8% 5%, var(--bg2) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 40% at 92% 95%, var(--bg2) 0%, transparent 50%);
+  pointer-events: none;
+  transition: background-image 0.5s;
+}
+body::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 0;
+  min-height: 100vh;
+  background-image: radial-gradient(circle, var(--line) 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+  pointer-events: none;
+  transition: background-image 0.5s;
+}
+
+/* ============================
+   FLOATING DECOS
+   ============================ */
+.deco {
+  position: fixed; z-index: 1; pointer-events: none;
+  font-size: 1.8rem; opacity: 0.18; user-select: none;
+  animation: df 9s ease-in-out infinite;
+  transition: opacity 0.4s;
+}
+.deco:nth-child(2) { animation-duration: 12s; animation-delay: -3s; }
+.deco:nth-child(3) { animation-duration: 10s; animation-delay: -7s; font-size: 1.3rem; opacity: 0.28; }
+.deco:nth-child(4) { animation-duration: 14s; animation-delay: -5s; font-size: 1.1rem; opacity: 0.25; }
+@keyframes df {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  40%       { transform: translateY(-18px) rotate(4deg); }
+  70%       { transform: translateY(8px) rotate(-2deg); }
+}
+#d1 { top:12vh;  left:2.5vw; }
+#d2 { top:55vh;  right:3vw; }
+#d3 { bottom:18vh; left:5vw; }
+#d4 { top:28vh;  right:1.5vw; }
+
+/* Flash overlay */
+#flash {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #1a1108; opacity: 0; pointer-events: none;
+  transition: opacity 0.12s;
+}
+#flash.on { opacity: 0.35; }
+
+/* ============================
+   MODAL
+   ============================ */
+#modal-wrap {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; pointer-events: none; transition: opacity 0.2s;
+}
+#modal-wrap.open { opacity: 1; pointer-events: all; }
+.modal {
+  background: var(--surf2);
+  border: 1.5px solid var(--bdr);
+  border-radius: 22px;
+  padding: 32px 36px;
+  text-align: center;
+  box-shadow: 0 24px 64px var(--shd);
+  max-width: 310px; width: 90%;
+  font-family: var(--fn-b);
+  transition: background 0.4s, border-color 0.4s;
+}
+.modal h3 {
+  font-family: var(--fn-h);
+  color: var(--text); font-size: 1.35rem; margin-bottom: 8px;
+  transition: font-family 0.3s;
+}
+.modal p { color: var(--textm); font-size: 1.05rem; margin-bottom: 22px; line-height: 1.5; }
+.modal-btns { display: flex; gap: 10px; justify-content: center; }
+
+/* ============================
+   APP LAYOUT
+   ============================ */
+.app {
+  position: relative; z-index: 2;
+  max-width: 960px; margin: 0 auto;
+  padding: 22px 20px 60px;
+  display: flex; flex-direction: column; gap: 18px;
+}
+
+/* ============================
+   HEADER
+   ============================ */
+header {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 16px; flex-wrap: wrap;
+}
+.hd-title {
+  font-family: var(--fn-h);
+  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+  color: var(--text); line-height: 1.05; letter-spacing: -0.01em;
+  transition: font-family 0.3s, color 0.4s;
+}
+.hd-sub {
+  font-family: var(--fn-b);
+  font-size: 1.05rem; color: var(--textl); margin-top: 3px;
+  transition: font-family 0.3s, color 0.4s;
+}
+.switcher {
+  display: flex; align-items: center; gap: 5px;
+  background: var(--surf2);
+  border: 1.5px solid var(--bdr);
+  border-radius: 60px; padding: 5px 8px;
+  box-shadow: 0 4px 18px var(--shd);
+  backdrop-filter: blur(12px);
+  transition: background 0.4s, border-color 0.4s;
+}
+.sw-btn {
+  background: none; border: none; width: 38px; height: 38px;
+  border-radius: 50%; cursor: pointer; font-size: 1.25rem;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 0.2s, transform 0.2s; position: relative;
+}
+.sw-btn:hover { transform: scale(1.18); }
+.sw-btn.active { background: var(--a1); transform: scale(1.08); box-shadow: 0 2px 10px var(--shd); }
+.sw-btn[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
+  font-size: 0.58rem; font-family: var(--fn-ui); color: var(--textl);
+  white-space: nowrap; opacity: 0; transition: opacity 0.15s; pointer-events: none;
+}
+.sw-btn:hover::after { opacity: 1; }
+
+/* ============================
+   GRID
+   ============================ */
+main {
+  display: grid; grid-template-columns: 265px 1fr;
+  gap: 18px; align-items: start;
+}
+@media (max-width: 680px) { main { grid-template-columns: 1fr; } }
+
+/* ============================
+   CARD
+   ============================ */
+.card {
+  background: var(--surf);
+  border: 1.5px solid var(--bdr);
+  border-radius: var(--r); padding: 16px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 6px 28px var(--shd);
+  transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+}
+.card-title {
+  font-family: var(--fn-h);
+  font-size: 0.8rem; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--a1); margin-bottom: 13px;
+  transition: font-family 0.3s, color 0.4s;
+}
+
+/* ============================
+   SIDEBAR
+   ============================ */
+.sidebar { display: flex; flex-direction: column; gap: 14px; }
+
+.btn-new {
+  width: 100%; background: var(--a1); color: white; border: none;
+  border-radius: 13px; padding: 11px 18px;
+  font-family: var(--fn-b); font-size: 1.18rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
+  box-shadow: 0 4px 16px var(--shd);
+  transition: background 0.2s, transform 0.18s, box-shadow 0.18s;
+}
+.btn-new:hover { background: var(--a2); transform: translateY(-2px); box-shadow: 0 7px 22px var(--shd); }
+.btn-new:active { transform: translateY(0); }
+
+.elist { display: flex; flex-direction: column; gap: 7px; max-height: 380px; overflow-y: auto; padding-right: 3px; }
+.elist::-webkit-scrollbar { width: 3px; }
+.elist::-webkit-scrollbar-track { background: transparent; }
+.elist::-webkit-scrollbar-thumb { background: var(--bdr); border-radius: 4px; }
+
+.eitem {
+  background: var(--surf2); border: 1.5px solid var(--bdr);
+  border-radius: 11px; padding: 9px 13px 9px 16px;
+  cursor: pointer; transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s, background 0.4s;
+  position: relative; overflow: hidden; display: flex; align-items: center; gap: 8px;
+}
+.eitem::before {
+  content: ''; position: absolute; left: 0; top: 4px; bottom: 4px;
+  width: 3px; border-radius: 2px; background: var(--a1); opacity: 0; transition: opacity 0.18s;
+}
+.eitem:hover::before, .eitem.sel::before { opacity: 1; }
+.eitem:hover { transform: translateX(3px); box-shadow: 0 4px 14px var(--shd); }
+.eitem.sel { border-color: var(--a1); }
+.eitem-info { flex: 1; min-width: 0; }
+.eitem-name {
+  font-family: var(--fn-b); font-size: 1rem; font-weight: 600; color: var(--text);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  transition: font-family 0.3s, color 0.4s;
+}
+.eitem-date { font-size: 0.7rem; color: var(--textl); margin-top: 1px; }
+.eitem-mood { font-size: 0.95rem; flex-shrink: 0; }
+.elist-empty {
+  text-align: center; font-family: var(--fn-b); font-size: 0.95rem;
+  color: var(--textl); padding: 18px 0; line-height: 1.7;
+  transition: font-family 0.3s, color 0.4s;
+}
+
+.srow { display: flex; flex-wrap: wrap; gap: 4px; }
+.sbtn {
+  background: none; border: none; cursor: pointer;
+  font-size: 1.35rem; padding: 3px; transition: transform 0.18s; line-height: 1;
+}
+.sbtn:hover { transform: scale(1.4) rotate(8deg); }
+
+/* ============================
+   EDITOR
+   ============================ */
+.editor { display: flex; flex-direction: column; gap: 13px; }
+
+.title-row { display: flex; align-items: center; gap: 10px; }
+.e-title {
+  flex: 1; min-width: 0;
+  background: var(--surf2); border: 1.5px solid var(--bdr);
+  border-radius: 12px; padding: 10px 16px;
+  font-family: var(--fn-h); font-size: 1.45rem; color: var(--text);
+  outline: none; backdrop-filter: blur(10px);
+  transition: border-color 0.2s, box-shadow 0.2s, font-family 0.3s, background 0.4s, color 0.4s;
+}
+.e-title:focus { border-color: var(--a1); box-shadow: 0 0 0 3px var(--ring); }
+.e-title::placeholder { color: var(--textl); }
+
+.mood-row { display: flex; gap: 5px; flex-shrink: 0; }
+.mbtn {
+  background: var(--surf2); border: 1.5px solid var(--bdr);
+  border-radius: 50%; width: 34px; height: 34px; font-size: 1rem;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: transform 0.18s, border-color 0.18s, background 0.4s;
+  backdrop-filter: blur(8px);
+}
+.mbtn:hover { transform: scale(1.25); border-color: var(--a1); }
+.mbtn.on { border-color: var(--a1); background: var(--a3); transform: scale(1.15); }
+
+.meta-row { display: flex; align-items: center; gap: 12px; }
+.e-date { font-size: 0.77rem; color: var(--textm); font-style: italic; transition: color 0.4s; }
+.e-wc   { font-size: 0.75rem; color: var(--textl); transition: color 0.4s; }
+.e-wc.has { color: var(--a1); }
+
+.e-area {
+  background: var(--surf2); border: 1.5px solid var(--bdr);
+  border-radius: var(--r); padding: 22px 26px;
+  font-family: var(--fn-b); font-size: 1.26rem; color: var(--text);
+  line-height: 2; min-height: 400px; resize: none; outline: none; width: 100%;
+  background-image: repeating-linear-gradient(
+    transparent 0px, transparent 47px, var(--line) 47px, var(--line) 48px
+  );
+  background-attachment: local;
+  box-shadow: 0 6px 28px var(--shd);
+  transition: border-color 0.2s, box-shadow 0.2s, font-family 0.3s, background 0.4s, color 0.4s;
+}
+.e-area:focus { border-color: var(--a1); box-shadow: 0 6px 38px var(--shd), 0 0 0 3px var(--ring); }
+.e-area::placeholder { color: var(--textl); }
+
+.action-bar { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.btn {
+  background: var(--surf2); border: 1.5px solid var(--bdr);
+  border-radius: 10px; padding: 9px 17px;
+  font-family: var(--fn-b); font-size: 1rem; color: var(--text);
+  cursor: pointer; display: flex; align-items: center; gap: 6px;
+  backdrop-filter: blur(8px); white-space: nowrap;
+  transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.15s, box-shadow 0.15s;
+}
+.btn:hover { background: var(--a1); color: white; border-color: var(--a1); transform: translateY(-1px); box-shadow: 0 4px 14px var(--shd); }
+.btn:active { transform: translateY(0); }
+.btn-p { background: var(--a1); color: white; border-color: var(--a1); }
+.btn-p:hover { background: var(--a2); border-color: var(--a2); }
+.btn-d { color: #c0515e; border-color: rgba(192,81,94,0.3); }
+.btn-d:hover { background: #c0515e; color: white; border-color: #c0515e; }
+
+.save-msg {
+  margin-left: auto; font-family: var(--fn-b); font-size: 0.9rem;
+  color: var(--a1); opacity: 0; transition: opacity 0.35s;
+}
+.save-msg.show { opacity: 1; }
+
+/* ============================
+   ANIMATIONS
+   ============================ */
+@keyframes fu {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.app > header { animation: fu 0.4s ease 0.04s backwards; }
+.app > main   { animation: fu 0.4s ease 0.1s backwards; }
+</style>
+</head>
+<body class="theme-cats">
+
+<span class="deco" id="d1">&#127811;</span>
+<span class="deco" id="d2">&#10024;</span>
+<span class="deco" id="d3">&#127807;</span>
+<span class="deco" id="d4">&#128062;</span>
+
+<div id="flash"></div>
+
+<div id="modal-wrap" onclick="handleModalClick(event)">
+  <div class="modal">
+    <h3>delete entry?</h3>
+    <p>This cannot be undone.</p>
+    <div class="modal-btns">
+      <button class="btn" onclick="closeModal()">keep it</button>
+      <button class="btn btn-d" onclick="doDelete()">delete</button>
+    </div>
+  </div>
+</div>
+
+<div class="app">
+  <header>
+    <div>
+      <h1 class="hd-title" id="hd-title">my little journal</h1>
+      <p class="hd-sub"  id="hd-sub">what is on your mind today?</p>
+    </div>
+    <div class="switcher">
+      <button class="sw-btn active" data-th="cats" data-tip="nature" onclick="setTheme('cats')">&#128049;</button>
+      <button class="sw-btn"        data-th="desk" data-tip="study"  onclick="setTheme('desk')">&#9749;</button>
+      <button class="sw-btn"        data-th="bear" data-tip="kawaii" onclick="setTheme('bear')">&#128059;</button>
+    </div>
+  </header>
+
+  <main>
+    <aside class="sidebar">
+      <button class="btn-new" onclick="newEntry()">&#10022; new entry</button>
+      <div class="card">
+        <div class="card-title" id="lbl-e">your entries</div>
+        <div class="elist" id="elist"></div>
+      </div>
+      <div class="card">
+        <div class="card-title" id="lbl-s">add a sticker</div>
+        <div class="srow" id="srow"></div>
+      </div>
+    </aside>
+
+    <section class="editor">
+      <div class="title-row">
+        <input class="e-title" id="e-title" type="text" placeholder="give this moment a name..." autocomplete="off" />
+        <div class="mood-row" id="mood-row"></div>
+      </div>
+      <div class="meta-row">
+        <span class="e-date" id="e-date">select an entry or start a new one</span>
+        <span class="e-wc"   id="e-wc"></span>
+      </div>
+      <textarea class="e-area" id="e-area" rows="14" placeholder="start writing... this is just for you"></textarea>
+      <div class="action-bar">
+        <button class="btn btn-p" onclick="saveEntry()">&#10022; save</button>
+        <button class="btn"       onclick="exportEntry()">&#8659; export</button>
+        <button class="btn btn-d" onclick="promptDelete()">&#215; delete</button>
+        <span class="save-msg" id="save-msg">saved &#10003;</span>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ===== CONFIG ===== */
+  var STORE_KEY = "mlj_entries_v2";
+  var THEME_KEY = "mlj_theme_v2";
+
+  var THEMES = {
+    // Forest Dusk — dark espresso base, khaki & ecru tones
+    cats: {
+      decoText: ["\uD83C\uDF42","\uD83C\uDF32","\uD83C\uDF41","\uD83E\uDEB5"],
+      title:    "my little journal",
+      subs:     ["what is on your mind today?","the forest listens","hello, dear diary","dark and quiet thoughts"],
+      elabel:   "your entries",
+      slabel:   "add a sticker",
+      stickers: ["\uD83C\uDF43","\uD83C\uDF42","\uD83C\uDF32","\uD83C\uDF41","\uD83E\uDEB5","\uD83D\uDC3E","\uD83C\uDF19","\u2728","\uD83D\uDC09","\uD83E\uDD8C","\uD83C\uDF3F","\uD83D\uDC26\u200D\u2B1B"],
+      moods:    ["\uD83D\uDE38","\uD83D\uDE3B","\uD83D\uDE3F","\uD83D\uDE4C","\uD83D\uDE40","\uD83D\uDE3D"],
+      ph:       "start writing... the cats are watching \uD83D\uDC3E"
+    },
+    // Rustwood — deep rust base, ecru text & surfaces
+    desk: {
+      decoText: ["\uD83C\uDFD5\uFE0F","\uD83E\uDD42","\uD83C\uDF77","\uD83D\uDD6F\uFE0F"],
+      title:    "rustwood journal",
+      subs:     ["settle in and write","warm thoughts for cold days","what did today feel like?","capture this moment"],
+      elabel:   "your entries",
+      slabel:   "add a sticker",
+      stickers: ["\u2615","\uD83C\uDF42","\uD83D\uDCD6","\uD83E\uDD42","\uD83D\uDD6F\uFE0F","\u270F\uFE0F","\uD83C\uDF3B","\uD83E\uDEA8","\uD83C\uDF32","\uD83D\uDCDC","\uD83C\uDF41","\uD83E\uDEB5"],
+      moods:    ["\uD83D\uDE0A","\uD83E\uDD14","\uD83D\uDE34","\uD83D\uDE24","\uD83E\uDD70","\uD83D\uDE0C"],
+      ph:       "start writing... warm yourself with words \uD83C\uDF77"
+    },
+    // Saddle Bloom — desert ecru base, warm brown accents
+    bear: {
+      decoText: ["\uD83C\uDF3B","\uD83E\uDEA8","\uD83C\uDF3C","\uD83C\uDF5E"],
+      title:    "sandy pages",
+      subs:     ["hello sunshine","soft and warm today","what bloomed today?","a gentle kind of day"],
+      elabel:   "your entries",
+      slabel:   "add a sticker",
+      stickers: ["\uD83C\uDF3B","\uD83E\uDEA8","\uD83C\uDF3C","\uD83C\uDF5E","\uD83E\uDD5C","\uD83C\uDF1E","\uD83E\uDEB4","\uD83C\uDF51","\uD83C\uDF4A","\uD83D\uDC1D","\uD83E\uDD8A","\uD83C\uDF45"],
+      moods:    ["\uD83E\uDD70","\uD83D\uDE0A","\uD83E\uDD7A","\uD83D\uDE22","\uD83C\uDF1E","\uD83D\uDE4F"],
+      ph:       "start writing... warm as afternoon light \uD83C\uDF3B"
+    }
+  };
+
+  /* ===== STATE ===== */
+  var entries      = [];
+  var activeId     = null;
+  var pendingDelId = null;
+  var autoTimer    = null;
+  var curTheme     = "cats";
+
+  /* ===== STORAGE ===== */
+  function loadStore() {
+    try { entries = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { entries = []; }
+  }
+  function saveStore() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(entries)); } catch (e) {}
+  }
+
+  /* ===== THEME ===== */
+  function setTheme(th, instant) {
+    if (!instant) {
+      var fl = document.getElementById("flash");
+      fl.classList.add("on");
+      setTimeout(function () { fl.classList.remove("on"); }, 240);
+    }
+    setTimeout(function () {
+      curTheme = th;
+      document.body.className = "theme-" + th;
+      try { localStorage.setItem(THEME_KEY, th); } catch (e) {}
+
+      var cfg = THEMES[th];
+      var ids = ["d1","d2","d3","d4"];
+      ids.forEach(function (id, i) {
+        var el = document.getElementById(id);
+        if (el) el.textContent = cfg.decoText[i] || "";
+      });
+
+      document.getElementById("hd-title").textContent = cfg.title;
+      var hour = new Date().getHours();
+      var idx = hour < 6 ? 3 : hour < 12 ? 1 : hour < 18 ? 0 : 2;
+      document.getElementById("hd-sub").textContent = cfg.subs[idx];
+      document.getElementById("lbl-e").textContent  = cfg.elabel;
+      document.getElementById("lbl-s").textContent  = cfg.slabel;
+
+      /* stickers */
+      var sr = document.getElementById("srow");
+      sr.innerHTML = "";
+      cfg.stickers.forEach(function (s) {
+        var b = document.createElement("button");
+        b.className   = "sbtn";
+        b.textContent = s;
+        b.addEventListener("click", function () { insertSticker(s); });
+        sr.appendChild(b);
+      });
+
+      /* moods */
+      var mr = document.getElementById("mood-row");
+      mr.innerHTML = "";
+      cfg.moods.forEach(function (m) {
+        var b = document.createElement("button");
+        b.className   = "mbtn";
+        b.textContent = m;
+        b.dataset.m   = m;
+        b.addEventListener("click", function () { selectMood(b); });
+        mr.appendChild(b);
+      });
+
+      if (activeId) restoreMood();
+      document.getElementById("e-area").placeholder = cfg.ph;
+
+      document.querySelectorAll(".sw-btn").forEach(function (b) {
+        b.classList.toggle("active", b.dataset.th === th);
+      });
+
+      renderList();
+    }, instant ? 0 : 120);
+  }
+
+  /* ===== ENTRIES ===== */
+  function newEntry() {
+    flushActive();
+    var now   = new Date().toISOString();
+    var entry = { id: String(Date.now()), title: "", content: "", mood: "", createdAt: now, updatedAt: now };
+    entries.unshift(entry);
+    saveStore();
+    renderList();
+    openEntry(entry.id);
+    document.getElementById("e-title").focus();
+  }
+
+  function openEntry(id) {
+    flushActive();
+    activeId = id;
+    var entry = getActive();
+    if (!entry) return;
+    document.getElementById("e-title").value = entry.title;
+    document.getElementById("e-area").value  = entry.content;
+    var d = new Date(entry.createdAt);
+    document.getElementById("e-date").textContent = d.toLocaleDateString("en-US", {
+      weekday: "long", month: "long", day: "numeric", year: "numeric"
+    });
+    restoreMood();
+    renderList();
+    updateWC();
+  }
+
+  function flushActive() {
+    if (!activeId) return;
+    var entry = getActive();
+    if (!entry) return;
+    entry.title   = document.getElementById("e-title").value;
+    entry.content = document.getElementById("e-area").value;
+    entry.updatedAt = new Date().toISOString();
+    var sel = document.querySelector(".mbtn.on");
+    if (sel) entry.mood = sel.dataset.m;
+    saveStore();
+  }
+
+  function saveEntry() {
+    flushActive();
+    renderList();
+    var msg = document.getElementById("save-msg");
+    msg.classList.add("show");
+    setTimeout(function () { msg.classList.remove("show"); }, 2000);
+  }
+
+  function scheduleAuto() {
+    clearTimeout(autoTimer);
+    autoTimer = setTimeout(function () { flushActive(); renderList(); }, 1400);
+  }
+
+  function getActive() {
+    return entries.filter(function (e) { return e.id === activeId; })[0] || null;
+  }
+
+  /* ===== RENDER LIST ===== */
+  function renderList() {
+    var el = document.getElementById("elist");
+    if (!entries.length) {
+      el.innerHTML = '<div class="elist-empty">no entries yet~<br>start writing!</div>';
+      return;
+    }
+    el.innerHTML = "";
+    entries.forEach(function (e) {
+      var d   = new Date(e.createdAt);
+      var ds  = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+      var nm  = e.title || "untitled entry...";
+      var div = document.createElement("div");
+      div.className = "eitem" + (e.id === activeId ? " sel" : "");
+      div.dataset.id = e.id;
+      div.innerHTML  =
+        '<div class="eitem-info">' +
+          '<div class="eitem-name">' + esc(nm) + '</div>' +
+          '<div class="eitem-date">' + ds + '</div>' +
+        '</div>' +
+        (e.mood ? '<span class="eitem-mood">' + e.mood + '</span>' : "");
+      div.addEventListener("click", function () { openEntry(e.id); });
+      el.appendChild(div);
+    });
+  }
+
+  /* ===== MOOD ===== */
+  function selectMood(btn) {
+    document.querySelectorAll(".mbtn").forEach(function (b) { b.classList.remove("on"); });
+    btn.classList.add("on");
+    if (activeId) {
+      var entry = getActive();
+      if (entry) { entry.mood = btn.dataset.m; saveStore(); renderList(); }
+    }
+  }
+  function restoreMood() {
+    var entry = getActive();
+    if (!entry) return;
+    document.querySelectorAll(".mbtn").forEach(function (b) {
+      b.classList.toggle("on", b.dataset.m === entry.mood);
+    });
+  }
+
+  /* ===== STICKERS ===== */
+  function insertSticker(s) {
+    var ta = document.getElementById("e-area");
+    var st = ta.selectionStart, en = ta.selectionEnd, v = ta.value;
+    ta.value = v.slice(0, st) + " " + s + " " + v.slice(en);
+    ta.selectionStart = ta.selectionEnd = st + s.length + 2;
+    ta.focus();
+    scheduleAuto();
+  }
+
+  /* ===== DELETE ===== */
+  function promptDelete() {
+    if (!activeId) return;
+    pendingDelId = activeId;
+    document.getElementById("modal-wrap").classList.add("open");
+  }
+  function closeModal() {
+    document.getElementById("modal-wrap").classList.remove("open");
+    pendingDelId = null;
+  }
+  function handleModalClick(evt) {
+    if (evt.target === document.getElementById("modal-wrap")) closeModal();
+  }
+  function doDelete() {
+    if (!pendingDelId) return;
+    entries = entries.filter(function (e) { return e.id !== pendingDelId; });
+    saveStore();
+    activeId = null;
+    document.getElementById("e-title").value = "";
+    document.getElementById("e-area").value  = "";
+    document.getElementById("e-date").textContent = "select an entry or start a new one";
+    document.getElementById("e-wc").textContent   = "";
+    closeModal();
+    renderList();
+    if (entries.length) openEntry(entries[0].id);
+  }
+
+  /* ===== EXPORT ===== */
+  function exportEntry() {
+    if (!activeId) return;
+    flushActive();
+    var entry = getActive();
+    if (!entry) return;
+    var nm   = entry.title || "untitled";
+    var date = new Date(entry.createdAt).toLocaleDateString();
+    var text = nm + "\n" + date + (entry.mood ? "  " + entry.mood : "") + "\n\n" + entry.content;
+    var blob = new Blob([text], { type: "text/plain" });
+    var url  = URL.createObjectURL(blob);
+    var a    = document.createElement("a");
+    a.href = url;
+    a.download = nm.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  /* ===== WORD COUNT ===== */
+  function updateWC() {
+    var text  = document.getElementById("e-area").value.trim();
+    var words = text ? text.split(/\s+/).length : 0;
+    var el    = document.getElementById("e-wc");
+    el.textContent = words > 0 ? words + " word" + (words !== 1 ? "s" : "") : "";
+    el.className   = "e-wc" + (words > 0 ? " has" : "");
+  }
+
+  /* ===== UTIL ===== */
+  function esc(s) {
+    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  /* ===== INIT ===== */
+  function init() {
+    loadStore();
+    var saved = "cats";
+    try { saved = localStorage.getItem(THEME_KEY) || "cats"; } catch (e) {}
+    setTheme(saved, true);
+    renderList();
+    if (entries.length) openEntry(entries[0].id);
+
+    document.getElementById("e-area").addEventListener("input", function () { updateWC(); scheduleAuto(); });
+    document.getElementById("e-title").addEventListener("input", scheduleAuto);
+
+    document.addEventListener("keydown", function (e) {
+      if ((e.metaKey || e.ctrlKey) && e.key === "s") { e.preventDefault(); saveEntry(); }
+    });
+    window.addEventListener("beforeunload", flushActive);
+    window.addEventListener("pagehide",     flushActive);
+  }
+
+  /* ===== GLOBAL EXPORTS ===== */
+  window.setTheme      = setTheme;
+  window.newEntry      = newEntry;
+  window.saveEntry     = saveEntry;
+  window.exportEntry   = exportEntry;
+  window.promptDelete  = promptDelete;
+  window.closeModal    = closeModal;
+  window.handleModalClick = handleModalClick;
+  window.doDelete      = doDelete;
+
+  init();
+}());
+</script>
+</body>
+</html>
