@@ -1,784 +1,782 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>my little journal</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Klee+One:wght@400;600&family=Patrick+Hand&family=Nunito:ital,wght@0,300;0,400;0,600;1,300&family=Zen+Kurenaido&family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
-<style>
-/* ============================
-   RESET & BASE
-   ============================ */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { font-size: 16px; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>kelly's journal ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF0F3;
+            --surface: #FFFFFF;
+            --surface2: #FFF5F7;
+            --border: #FFB3C1;
+            --border2: #FF85A1;
+            --shadow: #C94F72;
+            --text: #1E0610;
+            --text2: #7D2040;
+            --text3: #C94F72;
+            --accent: #FF3366;
+            --accent2: #FF6B9D;
+            --strip-bg: #FFFFFF;
+            --panel-bg: #FFFFFF;
+            --panel-border: #FF3366;
+            --panel-inner: #FFF5F7;
+            --grid-header: #FF3366;
+            --grid-header-text: #FFFFFF;
+            --grid-row-bg: #FF6B9D;
+            --grid-row-text: #FFFFFF;
+            --grid-cell: #FFF0F3;
+            --grid-cell-border: #FFD0DC;
+            --swatch-bg: #FFF5F7;
+            --swatch-border: #FFB3C1;
+            --swatch-text: #1E0610;
+            --clock-bg: #FF3366;
+            --clock-text: #FFFFFF;
+            --toggle-bg: #FF3366;
+            --toggle-text: #FFFFFF;
+            --menu-bg: #FFFFFF;
+            --menu-border: #FF3366;
+            --menu-shadow: rgba(200,40,80,0.25);
+        }
+        [data-theme="dark"] {
+            --bg: #140208;
+            --surface: #220810;
+            --surface2: #2E101A;
+            --border: #5C1A30;
+            --border2: #8C2848;
+            --shadow: #080004;
+            --text: #FFE5EA;
+            --text2: #FFB3C1;
+            --text3: #FF85A1;
+            --accent: #FF3366;
+            --accent2: #FF6B9D;
+            --strip-bg: #220810;
+            --panel-bg: #220810;
+            --panel-border: #FF3366;
+            --panel-inner: #2E101A;
+            --grid-header: #FF3366;
+            --grid-header-text: #FFFFFF;
+            --grid-row-bg: #5C1A30;
+            --grid-row-text: #FFE0E8;
+            --grid-cell: #2E101A;
+            --grid-cell-border: #5C1A30;
+            --swatch-bg: #2E101A;
+            --swatch-border: #5C1A30;
+            --swatch-text: #FFE5EA;
+            --clock-bg: #FF3366;
+            --clock-text: #FFFFFF;
+            --toggle-bg: #FFB3C1;
+            --toggle-text: #1E0610;
+            --menu-bg: #2E101A;
+            --menu-border: #FF3366;
+            --menu-shadow: rgba(0,0,0,0.55);
+        }
 
-/* ============================
-   CSS VARIABLES
-   ============================ */
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* THEME: NATURE CATS — Forest Dusk
-   Espresso Ember (#3A2A1E) base, Mossed Khaki (#998F70) accents,
-   Saddle Drift (#7C5E40) mid-tones, Desert Ecru (#E0CCA9) surfaces */
-:root {
-  --bg:       #3A2A1E;
-  --bg2:      #2a1e14;
-  --surf:     rgba(124, 94, 64, 0.35);
-  --surf2:    rgba(153, 143, 112, 0.18);
-  --a1:       #998F70;
-  --a2:       #7C5E40;
-  --a3:       rgba(153,143,112,0.18);
-  --text:     #E0CCA9;
-  --textm:    #c8b48e;
-  --textl:    #998F70;
-  --bdr:      rgba(153,143,112,0.35);
-  --shd:      rgba(0,0,0,0.35);
-  --ring:     rgba(153,143,112,0.3);
-  --line:     rgba(224,204,169,0.08);
-  --fn-h:     'Klee One', cursive;
-  --fn-b:     'Caveat', cursive;
-  --fn-ui:    'Nunito', sans-serif;
-  --r:        18px;
-}
+        body {
+            min-height: 100vh;
+            background: var(--bg);
+            font-family: 'Nunito', sans-serif;
+            color: var(--text);
+            display: flex; flex-direction: column; align-items: center;
+            transition: background 0.35s ease, color 0.35s ease;
+            scroll-behavior: smooth;
+        }
 
-/* THEME: STUDY DESK — Rustwood
-   Rustwood Terra (#66301E) base, Desert Ecru (#E0CCA9) surfaces,
-   Saddle Drift (#7C5E40) borders, Espresso darks for depth */
-body.theme-desk {
-  --bg:       #66301E;
-  --bg2:      #4e2415;
-  --surf:     rgba(224, 204, 169, 0.15);
-  --surf2:    rgba(224, 204, 169, 0.22);
-  --a1:       #E0CCA9;
-  --a2:       #c8b48e;
-  --a3:       rgba(224,204,169,0.12);
-  --text:     #E0CCA9;
-  --textm:    #c8b48e;
-  --textl:    rgba(224,204,169,0.55);
-  --bdr:      rgba(224,204,169,0.25);
-  --shd:      rgba(0,0,0,0.3);
-  --ring:     rgba(224,204,169,0.22);
-  --line:     rgba(224,204,169,0.07);
-  --fn-h:     'Shadows Into Light Two', cursive;
-  --fn-b:     'Patrick Hand', cursive;
-}
+        /* ─── LOADING ─── */
+        .loading-overlay {
+            position: fixed; inset: 0;
+            background: var(--accent);
+            z-index: 9999;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            transition: opacity 0.45s ease, visibility 0.45s;
+            overflow: hidden;
+        }
+        .loading-overlay::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(circle at 15% 25%, rgba(255,255,255,0.18) 0%, transparent 45%),
+                        radial-gradient(circle at 85% 75%, rgba(0,0,0,0.12) 0%, transparent 40%);
+        }
+        .loading-hidden { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
+        .ls { position: absolute; pointer-events: none;
+              font-size: clamp(1.5rem,5vw,2.8rem);
+              animation: lsFloat 3.5s ease-in-out infinite; }
+        @keyframes lsFloat {
+            0%,100% { transform: translateY(0) rotate(-5deg); }
+            50%      { transform: translateY(-18px) rotate(5deg) scale(1.05); }
+        }
+        .cursive-kelly {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(4.5rem, 20vw, 9rem);
+            color: #fff;
+            text-shadow: 4px 4px 0 rgba(0,0,0,0.18), 0 0 80px rgba(255,255,255,0.35);
+            z-index: 1; position: relative;
+            animation: kellyPulse 2s ease-in-out infinite alternate;
+            letter-spacing: 2px;
+        }
+        @keyframes kellyPulse {
+            from { transform: scale(1) rotate(-1.5deg); }
+            to   { transform: scale(1.05) rotate(1deg); }
+        }
+        .loading-sub {
+            font-size: clamp(1rem,4vw,1.5rem);
+            color: rgba(255,255,255,0.95);
+            background: rgba(255,255,255,0.22);
+            padding: 0.65rem 2rem; border-radius: 100px;
+            border: 2px solid rgba(255,255,255,0.45);
+            font-weight: 800; letter-spacing: 1px;
+            z-index: 1; position: relative; margin-top: 1.4rem;
+        }
 
-/* THEME: KAWAII BEAR — Saddle Bloom
-   Desert Ecru (#E0CCA9) base, Mossed Khaki (#998F70) accents,
-   Rustwood Terra (#66301E) pops, warm & creamy all over */
-body.theme-bear {
-  --bg:       #E0CCA9;
-  --bg2:      #d4bc96;
-  --surf:     rgba(255, 252, 244, 0.72);
-  --surf2:    rgba(255, 252, 244, 0.9);
-  --a1:       #7C5E40;
-  --a2:       #66301E;
-  --a3:       rgba(124,94,64,0.12);
-  --text:     #3A2A1E;
-  --textm:    #66301E;
-  --textl:    #998F70;
-  --bdr:      rgba(124,94,64,0.28);
-  --shd:      rgba(58,42,30,0.14);
-  --ring:     rgba(124,94,64,0.22);
-  --line:     rgba(58,42,30,0.1);
-  --fn-h:     'Caveat', cursive;
-  --fn-b:     'Zen Kurenaido', sans-serif;
-}
+        /* ─── DARK TOGGLE ─── */
+        .dark-toggle {
+            position: fixed; top: 1rem; right: 1rem; z-index: 800;
+            background: var(--toggle-bg); color: var(--toggle-text);
+            border: 3px solid rgba(255,255,255,0.25); border-radius: 100px;
+            padding: 0.5rem 1.2rem; font-size: 1.1rem; font-weight: 900;
+            cursor: pointer; font-family: 'Nunito', sans-serif;
+            box-shadow: 0 4px 0 var(--shadow);
+            transition: transform 0.1s, box-shadow 0.1s;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+        }
+        .dark-toggle:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--shadow); }
 
-/* ============================
-   BODY
-   ============================ */
-body {
-  font-family: var(--fn-ui);
-  background-color: var(--bg);
-  transition: background-color 0.5s;
-  overflow-x: hidden;
-  position: relative;
-  min-height: 100vh;
-}
-body::before {
-  content: '';
-  position: absolute; inset: 0; z-index: 0;
-  min-height: 100vh;
-  background-image:
-    radial-gradient(ellipse 70% 40% at 8% 5%, var(--bg2) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 40% at 92% 95%, var(--bg2) 0%, transparent 50%);
-  pointer-events: none;
-  transition: background-image 0.5s;
-}
-body::after {
-  content: '';
-  position: absolute; inset: 0; z-index: 0;
-  min-height: 100vh;
-  background-image: radial-gradient(circle, var(--line) 1.2px, transparent 1.2px);
-  background-size: 28px 28px;
-  pointer-events: none;
-  transition: background-image 0.5s;
-}
+        /* ─── WRAPPER ─── */
+        .site-wrapper { width: 100%; max-width: 1400px; padding: 0.5rem 1.5rem 5rem; opacity: 0; transition: opacity 0.5s ease; }
+        .site-wrapper.visible { opacity: 1; }
 
-/* ============================
-   FLOATING DECOS
-   ============================ */
-.deco {
-  position: fixed; z-index: 1; pointer-events: none;
-  font-size: 1.8rem; opacity: 0.18; user-select: none;
-  animation: df 9s ease-in-out infinite;
-  transition: opacity 0.4s;
-}
-.deco:nth-child(2) { animation-duration: 12s; animation-delay: -3s; }
-.deco:nth-child(3) { animation-duration: 10s; animation-delay: -7s; font-size: 1.3rem; opacity: 0.28; }
-.deco:nth-child(4) { animation-duration: 14s; animation-delay: -5s; font-size: 1.1rem; opacity: 0.25; }
-@keyframes df {
-  0%, 100% { transform: translateY(0) rotate(-4deg); }
-  40%       { transform: translateY(-18px) rotate(4deg); }
-  70%       { transform: translateY(8px) rotate(-2deg); }
-}
-#d1 { top:12vh;  left:2.5vw; }
-#d2 { top:55vh;  right:3vw; }
-#d3 { bottom:18vh; left:5vw; }
-#d4 { top:28vh;  right:1.5vw; }
+        /* ─── HEADER ─── */
+        .journal-header { text-align: center; margin: 2rem 0 2.5rem; }
+        .journal-title {
+            font-family: 'Pacifico', cursive;
+            font-size: clamp(2.8rem, 9vw, 5.5rem);
+            color: #fff; background: var(--accent);
+            display: inline-block; padding: 0.45rem 3rem 0.65rem;
+            border-radius: 120px; border: 4px solid rgba(255,255,255,0.3);
+            box-shadow: 0 8px 0 var(--shadow), 0 18px 50px rgba(255,51,102,0.28);
+            letter-spacing: 2px; position: relative;
+        }
+        .journal-title::after {
+            content: ''; position: absolute; inset: 5px; border-radius: 112px;
+            border: 2px solid rgba(255,255,255,0.18); pointer-events: none;
+        }
 
-/* Flash overlay */
-#flash {
-  position: fixed; inset: 0; z-index: 9999;
-  background: #1a1108; opacity: 0; pointer-events: none;
-  transition: opacity 0.12s;
-}
-#flash.on { opacity: 0.35; }
+        /* ─── CALENDAR ─── */
+        .calendar-section { display: flex; justify-content: center; margin: 0 0 2.5rem; }
+        .kawaii-calendar {
+            background: var(--surface); border-radius: 32px;
+            padding: 0 2rem 2.5rem;
+            box-shadow: 0 10px 0 var(--shadow), 0 24px 60px rgba(255,51,102,0.18);
+            border: 3px solid var(--border2);
+            width: 100%; max-width: 820px;
+            position: relative; overflow: hidden;
+        }
+        .rainbow-stripe {
+            height: 9px;
+            background: repeating-linear-gradient(90deg,
+                #FF3366 0,#FF3366 14.28%,#FF8C00 14.28%,#FF8C00 28.57%,
+                #FFD600 28.57%,#FFD600 42.86%,#00C853 42.86%,#00C853 57.14%,
+                #00B0FF 57.14%,#00B0FF 71.43%,#AA00FF 71.43%,#AA00FF 85.71%,
+                #FF3366 85.71%,#FF3366 100%);
+            margin-bottom: 1.8rem;
+        }
+        .calendar-header { display: flex; justify-content: space-between; align-items: center; padding: 0 0 1.5rem; }
+        .month-year {
+            background: var(--accent); color: #fff;
+            padding: 0.65rem 2rem; border-radius: 100px;
+            font-size: clamp(1.1rem,3.5vw,1.8rem); font-weight: 900;
+            box-shadow: 0 4px 0 var(--shadow); cursor: pointer;
+            border: 3px solid rgba(255,255,255,0.28);
+            transition: transform 0.1s, box-shadow 0.1s;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+        }
+        .month-year:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--shadow); }
+        .arrow {
+            width: 58px; height: 58px; background: var(--accent); color: #fff;
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 50%; font-size: 1.4rem; font-weight: 900; cursor: pointer;
+            box-shadow: 0 5px 0 var(--shadow); border: 3px solid rgba(255,255,255,0.25);
+            transition: transform 0.1s, box-shadow 0.1s;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent; user-select: none;
+        }
+        .arrow:active { transform: translateY(5px); box-shadow: none; }
+        .clock-wrap { text-align: center; margin-bottom: 1.6rem; }
+        .live-time {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: var(--clock-bg); color: var(--clock-text);
+            padding: 0.5rem 1.8rem; border-radius: 100px;
+            font-size: clamp(1rem,3vw,1.4rem); font-weight: 900;
+            box-shadow: 0 4px 0 var(--shadow); border: 3px solid rgba(255,255,255,0.22);
+        }
+        .weekdays {
+            display: grid; grid-template-columns: repeat(7,1fr); text-align: center;
+            font-size: clamp(1.1rem,3.2vw,1.5rem); color: var(--text3); font-weight: 900;
+            margin-bottom: 0.8rem;
+        }
+        .days-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 6px; }
+        .day-cell {
+            background: var(--surface2); border-radius: 14px;
+            font-size: clamp(0.85rem,2.3vw,1.25rem); font-weight: 800; color: var(--text);
+            box-shadow: 0 3px 0 var(--border); border: 2px solid var(--border);
+            aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center;
+        }
+        .day-cell.today { background: var(--accent); color: #fff; box-shadow: 0 3px 0 var(--shadow); border-color: rgba(255,255,255,0.3); }
+        .day-cell.other-month { opacity: 0.28; }
+        .cal-note { text-align: center; margin-top: 1.6rem; font-size: 1.05rem; color: var(--text3); font-weight: 700; }
 
-/* ============================
-   MODAL
-   ============================ */
-#modal-wrap {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(0,0,0,0.35);
-  backdrop-filter: blur(6px);
-  display: flex; align-items: center; justify-content: center;
-  opacity: 0; pointer-events: none; transition: opacity 0.2s;
-}
-#modal-wrap.open { opacity: 1; pointer-events: all; }
-.modal {
-  background: var(--surf2);
-  border: 1.5px solid var(--bdr);
-  border-radius: 22px;
-  padding: 32px 36px;
-  text-align: center;
-  box-shadow: 0 24px 64px var(--shd);
-  max-width: 310px; width: 90%;
-  font-family: var(--fn-b);
-  transition: background 0.4s, border-color 0.4s;
-}
-.modal h3 {
-  font-family: var(--fn-h);
-  color: var(--text); font-size: 1.35rem; margin-bottom: 8px;
-  transition: font-family 0.3s;
-}
-.modal p { color: var(--textm); font-size: 1.05rem; margin-bottom: 22px; line-height: 1.5; }
-.modal-btns { display: flex; gap: 10px; justify-content: center; }
+        /* ─── OCTAGON STRIP ─── */
+        .octagon-strip {
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+            gap: 0.75rem 1rem; margin: 0 0 2.5rem;
+            padding: 1.5rem 2rem 1.8rem;
+            background: var(--strip-bg); border-radius: 30px;
+            border: 3px solid var(--border2);
+            box-shadow: 0 8px 0 var(--shadow), 0 18px 40px rgba(0,0,0,0.09);
+        }
+        .strip-label { width: 100%; text-align: center; font-size: 0.9rem; font-weight: 900; color: var(--text3); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 0.2rem; }
+        .octa-btn {
+            width: 66px; height: 66px;
+            clip-path: polygon(30% 0%,70% 0%,100% 30%,100% 70%,70% 100%,30% 100%,0% 70%,0% 30%);
+            border: none; font-size: 1.75rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            filter: drop-shadow(0 5px 0 rgba(0,0,0,0.22));
+            transition: transform 0.1s, filter 0.1s;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+        }
+        .octa-btn:hover  { transform: scale(1.1); filter: drop-shadow(0 6px 0 rgba(0,0,0,0.28)) brightness(1.06); }
+        .octa-btn:active { transform: translateY(4px) scale(0.97); filter: drop-shadow(0 1px 0 rgba(0,0,0,0.2)); }
+        .octa-btn[data-color="0"]  { background: #FF3366; }
+        .octa-btn[data-color="1"]  { background: #FF8C00; }
+        .octa-btn[data-color="2"]  { background: #FF1744; }
+        .octa-btn[data-color="3"]  { background: #00BFA5; }
+        .octa-btn[data-color="4"]  { background: #FFD600; }
+        .octa-btn[data-color="5"]  { background: #304FFE; }
+        .octa-btn[data-color="6"]  { background: #AA00FF; }
+        .octa-btn[data-color="7"]  { background: #FF6D00; }
+        .octa-btn[data-color="8"]  { background: #00C853; }
+        .octa-btn[data-color="9"]  { background: #D50000; }
+        .octa-btn[data-color="10"] { background: #00B0FF; }
+        .octa-btn[data-color="11"] { background: #37474F; }
+        .octa-btn[data-color="12"] { background: #E040FB; }
+        .octa-btn[data-color="13"] { background: #1565C0; }
 
-/* ============================
-   APP LAYOUT
-   ============================ */
-.app {
-  position: relative; z-index: 2;
-  max-width: 960px; margin: 0 auto;
-  padding: 22px 20px 60px;
-  display: flex; flex-direction: column; gap: 18px;
-}
+        /* ─── PANELS ─── */
+        .pages-container { width: 100%; margin-bottom: 4rem; }
+        .page {
+            background: var(--panel-bg); border-radius: 24px;
+            border: 3px solid var(--panel-border);
+            box-shadow: 0 8px 0 var(--shadow), 0 20px 50px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-height: 0; opacity: 0; visibility: hidden;
+            transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease, visibility 0.3s;
+            margin-bottom: 2rem;
+        }
+        .page.active-page { max-height: 4000px; opacity: 1; visibility: visible; }
+        .page-inner { padding: 1.8rem; }
+        .panel-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.4rem; }
+        .panel-emoji { font-size: 2.4rem; }
+        .panel-title { font-family: 'Pacifico', cursive; font-size: clamp(1.4rem,4vw,2rem); color: var(--text); }
 
-/* ============================
-   HEADER
-   ============================ */
-header {
-  display: flex; align-items: flex-start;
-  justify-content: space-between; gap: 16px; flex-wrap: wrap;
-}
-.hd-title {
-  font-family: var(--fn-h);
-  font-size: clamp(1.9rem, 4.5vw, 2.9rem);
-  color: var(--text); line-height: 1.05; letter-spacing: -0.01em;
-  transition: font-family 0.3s, color 0.4s;
-}
-.hd-sub {
-  font-family: var(--fn-b);
-  font-size: 1.05rem; color: var(--textl); margin-top: 3px;
-  transition: font-family 0.3s, color 0.4s;
-}
-.switcher {
-  display: flex; align-items: center; gap: 5px;
-  background: var(--surf2);
-  border: 1.5px solid var(--bdr);
-  border-radius: 60px; padding: 5px 8px;
-  box-shadow: 0 4px 18px var(--shd);
-  backdrop-filter: blur(12px);
-  transition: background 0.4s, border-color 0.4s;
-}
-.sw-btn {
-  background: none; border: none; width: 38px; height: 38px;
-  border-radius: 50%; cursor: pointer; font-size: 1.25rem;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.2s, transform 0.2s; position: relative;
-}
-.sw-btn:hover { transform: scale(1.18); }
-.sw-btn.active { background: var(--a1); transform: scale(1.08); box-shadow: 0 2px 10px var(--shd); }
-.sw-btn[data-tip]::after {
-  content: attr(data-tip);
-  position: absolute; bottom: -22px; left: 50%; transform: translateX(-50%);
-  font-size: 0.58rem; font-family: var(--fn-ui); color: var(--textl);
-  white-space: nowrap; opacity: 0; transition: opacity 0.15s; pointer-events: none;
-}
-.sw-btn:hover::after { opacity: 1; }
+        .spreadsheet-panel { display: grid; grid-template-columns: 220px 1fr; grid-template-rows: auto 1fr auto; gap: 14px; }
+        @media (max-width: 780px) {
+            .spreadsheet-panel { grid-template-columns: 1fr; }
+            .grid-excel-cell { grid-column: 1 !important; grid-row: auto !important; }
+        }
+        .excel-cell { background: var(--panel-inner); border: 2px solid var(--border); border-radius: 16px; padding: 14px 16px; }
 
-/* ============================
-   GRID
-   ============================ */
-main {
-  display: grid; grid-template-columns: 265px 1fr;
-  gap: 18px; align-items: start;
-}
-@media (max-width: 680px) { main { grid-template-columns: 1fr; } }
+        .sentence-cell {
+            grid-column: 1; grid-row: 1;
+            display: flex; flex-wrap: wrap; align-items: center; gap: 7px;
+            font-size: clamp(1.2rem,2.5vw,1.7rem); font-weight: 700;
+        }
+        .colored-word {
+            color: #fff; padding: 0.2rem 1rem; border-radius: 100px; font-weight: 900;
+            font-size: clamp(1.1rem,2vw,1.6rem); white-space: nowrap;
+            box-shadow: 0 3px 0 rgba(0,0,0,0.18); border: 2px solid rgba(255,255,255,0.28);
+        }
 
-/* ============================
-   CARD
-   ============================ */
-.card {
-  background: var(--surf);
-  border: 1.5px solid var(--bdr);
-  border-radius: var(--r); padding: 16px;
-  backdrop-filter: blur(14px);
-  box-shadow: 0 6px 28px var(--shd);
-  transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
-}
-.card-title {
-  font-family: var(--fn-h);
-  font-size: 0.8rem; text-transform: uppercase;
-  letter-spacing: 0.1em; color: var(--a1); margin-bottom: 13px;
-  transition: font-family 0.3s, color 0.4s;
-}
+        .grid-excel-cell { grid-column: 2; grid-row: 1 / 3; overflow-x: auto; padding: 14px; }
+        .month-grid-excel {
+            display: grid;
+            grid-template-columns: 40px repeat(12, minmax(40px, 1fr));
+            gap: 3px; min-width: 580px;
+        }
+        .grid-header-excel {
+            background: var(--grid-header); color: var(--grid-header-text);
+            font-weight: 900; text-align: center; padding: 7px 3px; border-radius: 9px;
+            font-size: 0.88rem; letter-spacing: 0.4px;
+        }
+        .row-label-excel {
+            background: var(--grid-row-bg); color: var(--grid-row-text);
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; border-radius: 9px; font-size: 0.8rem;
+        }
 
-/* ============================
-   SIDEBAR
-   ============================ */
-.sidebar { display: flex; flex-direction: column; gap: 14px; }
+        /* ─── GRID CELL ─── */
+        .grid-cell-excel {
+            background: var(--grid-cell);
+            border-radius: 8px; border: 2px solid var(--grid-cell-border);
+            aspect-ratio: 1/1;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; position: relative;
+            transition: transform 0.12s, border-color 0.12s, box-shadow 0.12s;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+            z-index: 1;
+        }
+        .grid-cell-excel:hover { transform: scale(1.1); border-color: var(--accent); z-index: 2; }
+        .grid-cell-excel.today-cell {
+            background: var(--accent) !important; border-color: transparent;
+            box-shadow: 0 2px 0 var(--shadow), 0 0 0 2.5px #fff;
+            font-size: 0.55rem; font-weight: 900; color: #fff;
+        }
+        .grid-cell-excel.colored-cell { color: transparent; }
+        .grid-cell-excel.menu-open {
+            transform: scale(1.15); z-index: 200;
+            box-shadow: 0 0 0 3px var(--accent), 0 6px 20px rgba(255,51,102,0.35);
+        }
 
-.btn-new {
-  width: 100%; background: var(--a1); color: white; border: none;
-  border-radius: 13px; padding: 11px 18px;
-  font-family: var(--fn-b); font-size: 1.18rem;
-  cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 7px;
-  box-shadow: 0 4px 16px var(--shd);
-  transition: background 0.2s, transform 0.18s, box-shadow 0.18s;
-}
-.btn-new:hover { background: var(--a2); transform: translateY(-2px); box-shadow: 0 7px 22px var(--shd); }
-.btn-new:active { transform: translateY(0); }
+        /* ─── COLOUR POPUP ─── */
+        .color-popup {
+            position: absolute;
+            background: var(--menu-bg);
+            border: 3px solid var(--menu-border);
+            border-radius: 100px;
+            box-shadow: 0 8px 0 var(--shadow), 0 16px 40px var(--menu-shadow);
+            padding: 9px 14px;
+            display: flex; gap: 8px; align-items: center;
+            z-index: 500; white-space: nowrap;
+            /* default: above the cell */
+            bottom: calc(100% + 14px);
+            left: 50%;
+            transform: translateX(-50%) scale(0.65);
+            transform-origin: bottom center;
+            opacity: 0; pointer-events: none;
+            transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), opacity 0.16s ease;
+        }
+        .color-popup.open { transform: translateX(-50%) scale(1); opacity: 1; pointer-events: all; }
+        /* tail arrow pointing down (toward cell) */
+        .color-popup::after {
+            content: ''; position: absolute;
+            bottom: -10px; left: 50%; transform: translateX(-50%);
+            border-left: 8px solid transparent; border-right: 8px solid transparent;
+            border-top: 10px solid var(--menu-border);
+        }
+        /* flip to below cell */
+        .color-popup.flip { bottom: auto; top: calc(100% + 14px); transform-origin: top center; transform: translateX(-50%) scale(0.65); }
+        .color-popup.flip.open { transform: translateX(-50%) scale(1); }
+        .color-popup.flip::after { bottom: auto; top: -10px; border-top: none; border-bottom: 10px solid var(--menu-border); }
 
-.elist { display: flex; flex-direction: column; gap: 7px; max-height: 380px; overflow-y: auto; padding-right: 3px; }
-.elist::-webkit-scrollbar { width: 3px; }
-.elist::-webkit-scrollbar-track { background: transparent; }
-.elist::-webkit-scrollbar-thumb { background: var(--bdr); border-radius: 4px; }
+        .erase-dot {
+            width: 30px; height: 30px; border-radius: 50%;
+            border: 2.5px solid var(--border2); background: var(--surface2);
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+            font-size: 0.8rem; box-shadow: 0 2px 0 rgba(0,0,0,0.1); flex-shrink: 0;
+            transition: transform 0.1s; color: var(--text3); font-weight: 900;
+        }
+        .erase-dot:hover { transform: scale(1.2); }
+        .color-dot {
+            width: 30px; height: 30px; border-radius: 50%;
+            border: 2.5px solid rgba(255,255,255,0.5); box-shadow: 0 2px 0 rgba(0,0,0,0.15);
+            cursor: pointer; flex-shrink: 0; transition: transform 0.1s, box-shadow 0.1s;
+        }
+        .color-dot:hover { transform: scale(1.22); box-shadow: 0 4px 0 rgba(0,0,0,0.2); }
 
-.eitem {
-  background: var(--surf2); border: 1.5px solid var(--bdr);
-  border-radius: 11px; padding: 9px 13px 9px 16px;
-  cursor: pointer; transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s, background 0.4s;
-  position: relative; overflow: hidden; display: flex; align-items: center; gap: 8px;
-}
-.eitem::before {
-  content: ''; position: absolute; left: 0; top: 4px; bottom: 4px;
-  width: 3px; border-radius: 2px; background: var(--a1); opacity: 0; transition: opacity 0.18s;
-}
-.eitem:hover::before, .eitem.sel::before { opacity: 1; }
-.eitem:hover { transform: translateX(3px); box-shadow: 0 4px 14px var(--shd); }
-.eitem.sel { border-color: var(--a1); }
-.eitem-info { flex: 1; min-width: 0; }
-.eitem-name {
-  font-family: var(--fn-b); font-size: 1rem; font-weight: 600; color: var(--text);
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  transition: font-family 0.3s, color 0.4s;
-}
-.eitem-date { font-size: 0.7rem; color: var(--textl); margin-top: 1px; }
-.eitem-mood { font-size: 0.95rem; flex-shrink: 0; }
-.elist-empty {
-  text-align: center; font-family: var(--fn-b); font-size: 0.95rem;
-  color: var(--textl); padding: 18px 0; line-height: 1.7;
-  transition: font-family 0.3s, color 0.4s;
-}
+        /* ─── SWATCHES ─── */
+        .swatch-excel-cell { grid-column: 1; grid-row: 2; }
+        .swatch-excel-grid { display: flex; flex-direction: column; gap: 7px; }
+        .swatch-excel-item { display: flex; align-items: center; gap: 11px; background: var(--swatch-bg); padding: 7px 13px; border-radius: 100px; border: 2px solid var(--swatch-border); }
+        .swatch-excel-color { width: 32px; height: 32px; border-radius: 9px; border: 2px solid rgba(255,255,255,0.45); box-shadow: 0 2px 0 rgba(0,0,0,0.12); flex-shrink: 0; }
+        .swatch-excel-name { font-size: 1rem; font-weight: 800; color: var(--swatch-text); }
 
-.srow { display: flex; flex-wrap: wrap; gap: 4px; }
-.sbtn {
-  background: none; border: none; cursor: pointer;
-  font-size: 1.35rem; padding: 3px; transition: transform 0.18s; line-height: 1;
-}
-.sbtn:hover { transform: scale(1.4) rotate(8deg); }
+        /* ─── BACK BUTTON ─── */
+        .back-button-excel {
+            grid-column: 1 / -1; background: var(--accent); color: #fff;
+            border: 3px solid rgba(255,255,255,0.28); border-radius: 100px;
+            font-size: 1.2rem; font-weight: 900; padding: 0.9rem; cursor: pointer;
+            box-shadow: 0 5px 0 var(--shadow);
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            margin-top: 8px; font-family: 'Nunito', sans-serif;
+            transition: transform 0.1s, box-shadow 0.1s, filter 0.1s;
+            touch-action: manipulation; -webkit-tap-highlight-color: transparent;
+        }
+        .back-button-excel:active { transform: translateY(5px); box-shadow: 0 1px 0 var(--shadow); }
+        .back-button-excel:hover { filter: brightness(1.08); }
 
-/* ============================
-   EDITOR
-   ============================ */
-.editor { display: flex; flex-direction: column; gap: 13px; }
-
-.title-row { display: flex; align-items: center; gap: 10px; }
-.e-title {
-  flex: 1; min-width: 0;
-  background: var(--surf2); border: 1.5px solid var(--bdr);
-  border-radius: 12px; padding: 10px 16px;
-  font-family: var(--fn-h); font-size: 1.45rem; color: var(--text);
-  outline: none; backdrop-filter: blur(10px);
-  transition: border-color 0.2s, box-shadow 0.2s, font-family 0.3s, background 0.4s, color 0.4s;
-}
-.e-title:focus { border-color: var(--a1); box-shadow: 0 0 0 3px var(--ring); }
-.e-title::placeholder { color: var(--textl); }
-
-.mood-row { display: flex; gap: 5px; flex-shrink: 0; }
-.mbtn {
-  background: var(--surf2); border: 1.5px solid var(--bdr);
-  border-radius: 50%; width: 34px; height: 34px; font-size: 1rem;
-  cursor: pointer; display: flex; align-items: center; justify-content: center;
-  transition: transform 0.18s, border-color 0.18s, background 0.4s;
-  backdrop-filter: blur(8px);
-}
-.mbtn:hover { transform: scale(1.25); border-color: var(--a1); }
-.mbtn.on { border-color: var(--a1); background: var(--a3); transform: scale(1.15); }
-
-.meta-row { display: flex; align-items: center; gap: 12px; }
-.e-date { font-size: 0.77rem; color: var(--textm); font-style: italic; transition: color 0.4s; }
-.e-wc   { font-size: 0.75rem; color: var(--textl); transition: color 0.4s; }
-.e-wc.has { color: var(--a1); }
-
-.e-area {
-  background: var(--surf2); border: 1.5px solid var(--bdr);
-  border-radius: var(--r); padding: 22px 26px;
-  font-family: var(--fn-b); font-size: 1.26rem; color: var(--text);
-  line-height: 2; min-height: 400px; resize: none; outline: none; width: 100%;
-  background-image: repeating-linear-gradient(
-    transparent 0px, transparent 47px, var(--line) 47px, var(--line) 48px
-  );
-  background-attachment: local;
-  box-shadow: 0 6px 28px var(--shd);
-  transition: border-color 0.2s, box-shadow 0.2s, font-family 0.3s, background 0.4s, color 0.4s;
-}
-.e-area:focus { border-color: var(--a1); box-shadow: 0 6px 38px var(--shd), 0 0 0 3px var(--ring); }
-.e-area::placeholder { color: var(--textl); }
-
-.action-bar { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
-.btn {
-  background: var(--surf2); border: 1.5px solid var(--bdr);
-  border-radius: 10px; padding: 9px 17px;
-  font-family: var(--fn-b); font-size: 1rem; color: var(--text);
-  cursor: pointer; display: flex; align-items: center; gap: 6px;
-  backdrop-filter: blur(8px); white-space: nowrap;
-  transition: background 0.18s, color 0.18s, border-color 0.18s, transform 0.15s, box-shadow 0.15s;
-}
-.btn:hover { background: var(--a1); color: white; border-color: var(--a1); transform: translateY(-1px); box-shadow: 0 4px 14px var(--shd); }
-.btn:active { transform: translateY(0); }
-.btn-p { background: var(--a1); color: white; border-color: var(--a1); }
-.btn-p:hover { background: var(--a2); border-color: var(--a2); }
-.btn-d { color: #c0515e; border-color: rgba(192,81,94,0.3); }
-.btn-d:hover { background: #c0515e; color: white; border-color: #c0515e; }
-
-.save-msg {
-  margin-left: auto; font-family: var(--fn-b); font-size: 0.9rem;
-  color: var(--a1); opacity: 0; transition: opacity 0.35s;
-}
-.save-msg.show { opacity: 1; }
-
-/* ============================
-   ANIMATIONS
-   ============================ */
-@keyframes fu {
-  from { opacity: 0; transform: translateY(14px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-.app > header { animation: fu 0.4s ease 0.04s backwards; }
-.app > main   { animation: fu 0.4s ease 0.1s backwards; }
-</style>
+        /* ─── BODY THEME TINTS ─── */
+        body.theme-0  { background: #FFF0F3; } body.theme-1  { background: #FFF5E6; }
+        body.theme-2  { background: #FFFDE7; } body.theme-3  { background: #E0FAFA; }
+        body.theme-4  { background: #FFFDE7; } body.theme-5  { background: #E8EAF6; }
+        body.theme-6  { background: #F3E5F5; } body.theme-7  { background: #FFF3E0; }
+        body.theme-8  { background: #E8F5E9; } body.theme-9  { background: #FFEBEE; }
+        body.theme-10 { background: #E1F5FE; } body.theme-11 { background: #ECEFF1; }
+        body.theme-12 { background: #FCE4EC; } body.theme-13 { background: #E3F2FD; }
+        [data-theme="dark"] body[class*="theme-"] { background: var(--bg) !important; }
+    </style>
 </head>
-<body class="theme-cats">
+<body>
 
-<span class="deco" id="d1">&#127811;</span>
-<span class="deco" id="d2">&#10024;</span>
-<span class="deco" id="d3">&#127807;</span>
-<span class="deco" id="d4">&#128062;</span>
-
-<div id="flash"></div>
-
-<div id="modal-wrap" onclick="handleModalClick(event)">
-  <div class="modal">
-    <h3>delete entry?</h3>
-    <p>This cannot be undone.</p>
-    <div class="modal-btns">
-      <button class="btn" onclick="closeModal()">keep it</button>
-      <button class="btn btn-d" onclick="doDelete()">delete</button>
-    </div>
-  </div>
+<div class="loading-overlay" id="loadingOverlay">
+    <div class="ls" style="top:9%;left:6%;animation-delay:0s">🌸</div>
+    <div class="ls" style="top:12%;right:9%;animation-delay:0.6s">✨</div>
+    <div class="ls" style="bottom:18%;left:10%;animation-delay:1.1s">💖</div>
+    <div class="ls" style="bottom:8%;right:7%;animation-delay:0.3s">🍰</div>
+    <div class="ls" style="top:48%;left:2%;animation-delay:0.9s">⭐</div>
+    <div class="ls" style="top:38%;right:3%;animation-delay:1.4s">🌟</div>
+    <div class="cursive-kelly">Kelly</div>
+    <div class="loading-sub">✨ loading kawaii things... ✨</div>
 </div>
 
-<div class="app">
-  <header>
-    <div>
-      <h1 class="hd-title" id="hd-title">my little journal</h1>
-      <p class="hd-sub"  id="hd-sub">what is on your mind today?</p>
-    </div>
-    <div class="switcher">
-      <button class="sw-btn active" data-th="cats" data-tip="nature" onclick="setTheme('cats')">&#128049;</button>
-      <button class="sw-btn"        data-th="desk" data-tip="study"  onclick="setTheme('desk')">&#9749;</button>
-      <button class="sw-btn"        data-th="bear" data-tip="kawaii" onclick="setTheme('bear')">&#128059;</button>
-    </div>
-  </header>
+<button class="dark-toggle" id="darkToggle">🌙 dark</button>
 
-  <main>
-    <aside class="sidebar">
-      <button class="btn-new" onclick="newEntry()">&#10022; new entry</button>
-      <div class="card">
-        <div class="card-title" id="lbl-e">your entries</div>
-        <div class="elist" id="elist"></div>
-      </div>
-      <div class="card">
-        <div class="card-title" id="lbl-s">add a sticker</div>
-        <div class="srow" id="srow"></div>
-      </div>
-    </aside>
+<div class="site-wrapper" id="siteWrapper">
 
-    <section class="editor">
-      <div class="title-row">
-        <input class="e-title" id="e-title" type="text" placeholder="give this moment a name..." autocomplete="off" />
-        <div class="mood-row" id="mood-row"></div>
-      </div>
-      <div class="meta-row">
-        <span class="e-date" id="e-date">select an entry or start a new one</span>
-        <span class="e-wc"   id="e-wc"></span>
-      </div>
-      <textarea class="e-area" id="e-area" rows="14" placeholder="start writing... this is just for you"></textarea>
-      <div class="action-bar">
-        <button class="btn btn-p" onclick="saveEntry()">&#10022; save</button>
-        <button class="btn"       onclick="exportEntry()">&#8659; export</button>
-        <button class="btn btn-d" onclick="promptDelete()">&#215; delete</button>
-        <span class="save-msg" id="save-msg">saved &#10003;</span>
-      </div>
+    <div class="journal-header">
+        <div class="journal-title">my journal ✨</div>
+    </div>
+
+    <section class="calendar-section">
+        <div class="kawaii-calendar">
+            <div class="rainbow-stripe"></div>
+            <div class="calendar-header">
+                <span class="arrow" id="prevMonthBtn">◀</span>
+                <span class="month-year" id="monthYearDisplay">June 2025</span>
+                <span class="arrow" id="nextMonthBtn">▶</span>
+            </div>
+            <div class="clock-wrap">
+                <div class="live-time" id="liveClock">⏰ 00:00:00</div>
+            </div>
+            <div class="weekdays">
+                <span>🌻</span><span>🌞</span><span>🌼</span><span>🌸</span><span>🍄</span><span>🐻</span><span>🍰</span>
+            </div>
+            <div class="days-grid" id="daysGrid"></div>
+            <div class="cal-note">🐰 colours stay forever ⋆⭒˚.⋆ 🐱</div>
+        </div>
     </section>
-  </main>
+
+    <div class="octagon-strip">
+        <div class="strip-label">📓 pick a tracker</div>
+        <button class="octa-btn" data-index="0"  data-color="0">🌈</button>
+        <button class="octa-btn" data-index="1"  data-color="1">⭐</button>
+        <button class="octa-btn" data-index="2"  data-color="2">❤️</button>
+        <button class="octa-btn" data-index="3"  data-color="3">🧘</button>
+        <button class="octa-btn" data-index="4"  data-color="4">⚡</button>
+        <button class="octa-btn" data-index="5"  data-color="5">😴</button>
+        <button class="octa-btn" data-index="6"  data-color="6">😪</button>
+        <button class="octa-btn" data-index="7"  data-color="7">😰</button>
+        <button class="octa-btn" data-index="8"  data-color="8">😥</button>
+        <button class="octa-btn" data-index="9"  data-color="9">🤕</button>
+        <button class="octa-btn" data-index="10" data-color="10">🩹</button>
+        <button class="octa-btn" data-index="11" data-color="11">💼</button>
+        <button class="octa-btn" data-index="12" data-color="12">🛍️</button>
+        <button class="octa-btn" data-index="13" data-color="13">☀️</button>
+    </div>
+
+    <div class="pages-container" id="pagesContainer"></div>
 </div>
 
 <script>
 (function () {
-  "use strict";
+    const loading    = document.getElementById('loadingOverlay');
+    const wrapper    = document.getElementById('siteWrapper');
+    const htmlEl     = document.documentElement;
+    const darkToggle = document.getElementById('darkToggle');
 
-  /* ===== CONFIG ===== */
-  var STORE_KEY = "mlj_entries_v2";
-  var THEME_KEY = "mlj_theme_v2";
-
-  var THEMES = {
-    // Forest Dusk — dark espresso base, khaki & ecru tones
-    cats: {
-      decoText: ["\uD83C\uDF42","\uD83C\uDF32","\uD83C\uDF41","\uD83E\uDEB5"],
-      title:    "my little journal",
-      subs:     ["what is on your mind today?","the forest listens","hello, dear diary","dark and quiet thoughts"],
-      elabel:   "your entries",
-      slabel:   "add a sticker",
-      stickers: ["\uD83C\uDF43","\uD83C\uDF42","\uD83C\uDF32","\uD83C\uDF41","\uD83E\uDEB5","\uD83D\uDC3E","\uD83C\uDF19","\u2728","\uD83D\uDC09","\uD83E\uDD8C","\uD83C\uDF3F","\uD83D\uDC26\u200D\u2B1B"],
-      moods:    ["\uD83D\uDE38","\uD83D\uDE3B","\uD83D\uDE3F","\uD83D\uDE4C","\uD83D\uDE40","\uD83D\uDE3D"],
-      ph:       "start writing... the cats are watching \uD83D\uDC3E"
-    },
-    // Rustwood — deep rust base, ecru text & surfaces
-    desk: {
-      decoText: ["\uD83C\uDFD5\uFE0F","\uD83E\uDD42","\uD83C\uDF77","\uD83D\uDD6F\uFE0F"],
-      title:    "rustwood journal",
-      subs:     ["settle in and write","warm thoughts for cold days","what did today feel like?","capture this moment"],
-      elabel:   "your entries",
-      slabel:   "add a sticker",
-      stickers: ["\u2615","\uD83C\uDF42","\uD83D\uDCD6","\uD83E\uDD42","\uD83D\uDD6F\uFE0F","\u270F\uFE0F","\uD83C\uDF3B","\uD83E\uDEA8","\uD83C\uDF32","\uD83D\uDCDC","\uD83C\uDF41","\uD83E\uDEB5"],
-      moods:    ["\uD83D\uDE0A","\uD83E\uDD14","\uD83D\uDE34","\uD83D\uDE24","\uD83E\uDD70","\uD83D\uDE0C"],
-      ph:       "start writing... warm yourself with words \uD83C\uDF77"
-    },
-    // Saddle Bloom — desert ecru base, warm brown accents
-    bear: {
-      decoText: ["\uD83C\uDF3B","\uD83E\uDEA8","\uD83C\uDF3C","\uD83C\uDF5E"],
-      title:    "sandy pages",
-      subs:     ["hello sunshine","soft and warm today","what bloomed today?","a gentle kind of day"],
-      elabel:   "your entries",
-      slabel:   "add a sticker",
-      stickers: ["\uD83C\uDF3B","\uD83E\uDEA8","\uD83C\uDF3C","\uD83C\uDF5E","\uD83E\uDD5C","\uD83C\uDF1E","\uD83E\uDEB4","\uD83C\uDF51","\uD83C\uDF4A","\uD83D\uDC1D","\uD83E\uDD8A","\uD83C\uDF45"],
-      moods:    ["\uD83E\uDD70","\uD83D\uDE0A","\uD83E\uDD7A","\uD83D\uDE22","\uD83C\uDF1E","\uD83D\uDE4F"],
-      ph:       "start writing... warm as afternoon light \uD83C\uDF3B"
-    }
-  };
-
-  /* ===== STATE ===== */
-  var entries      = [];
-  var activeId     = null;
-  var pendingDelId = null;
-  var autoTimer    = null;
-  var curTheme     = "cats";
-
-  /* ===== STORAGE ===== */
-  function loadStore() {
-    try { entries = JSON.parse(localStorage.getItem(STORE_KEY)) || []; } catch (e) { entries = []; }
-  }
-  function saveStore() {
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(entries)); } catch (e) {}
-  }
-
-  /* ===== THEME ===== */
-  function setTheme(th, instant) {
-    if (!instant) {
-      var fl = document.getElementById("flash");
-      fl.classList.add("on");
-      setTimeout(function () { fl.classList.remove("on"); }, 240);
-    }
-    setTimeout(function () {
-      curTheme = th;
-      document.body.className = "theme-" + th;
-      try { localStorage.setItem(THEME_KEY, th); } catch (e) {}
-
-      var cfg = THEMES[th];
-      var ids = ["d1","d2","d3","d4"];
-      ids.forEach(function (id, i) {
-        var el = document.getElementById(id);
-        if (el) el.textContent = cfg.decoText[i] || "";
-      });
-
-      document.getElementById("hd-title").textContent = cfg.title;
-      var hour = new Date().getHours();
-      var idx = hour < 6 ? 3 : hour < 12 ? 1 : hour < 18 ? 0 : 2;
-      document.getElementById("hd-sub").textContent = cfg.subs[idx];
-      document.getElementById("lbl-e").textContent  = cfg.elabel;
-      document.getElementById("lbl-s").textContent  = cfg.slabel;
-
-      /* stickers */
-      var sr = document.getElementById("srow");
-      sr.innerHTML = "";
-      cfg.stickers.forEach(function (s) {
-        var b = document.createElement("button");
-        b.className   = "sbtn";
-        b.textContent = s;
-        b.addEventListener("click", function () { insertSticker(s); });
-        sr.appendChild(b);
-      });
-
-      /* moods */
-      var mr = document.getElementById("mood-row");
-      mr.innerHTML = "";
-      cfg.moods.forEach(function (m) {
-        var b = document.createElement("button");
-        b.className   = "mbtn";
-        b.textContent = m;
-        b.dataset.m   = m;
-        b.addEventListener("click", function () { selectMood(b); });
-        mr.appendChild(b);
-      });
-
-      if (activeId) restoreMood();
-      document.getElementById("e-area").placeholder = cfg.ph;
-
-      document.querySelectorAll(".sw-btn").forEach(function (b) {
-        b.classList.toggle("active", b.dataset.th === th);
-      });
-
-      renderList();
-    }, instant ? 0 : 120);
-  }
-
-  /* ===== ENTRIES ===== */
-  function newEntry() {
-    flushActive();
-    var now   = new Date().toISOString();
-    var entry = { id: String(Date.now()), title: "", content: "", mood: "", createdAt: now, updatedAt: now };
-    entries.unshift(entry);
-    saveStore();
-    renderList();
-    openEntry(entry.id);
-    document.getElementById("e-title").focus();
-  }
-
-  function openEntry(id) {
-    flushActive();
-    activeId = id;
-    var entry = getActive();
-    if (!entry) return;
-    document.getElementById("e-title").value = entry.title;
-    document.getElementById("e-area").value  = entry.content;
-    var d = new Date(entry.createdAt);
-    document.getElementById("e-date").textContent = d.toLocaleDateString("en-US", {
-      weekday: "long", month: "long", day: "numeric", year: "numeric"
+    /* dark mode */
+    const savedTheme = localStorage.getItem('kawaiiTheme') || 'light';
+    htmlEl.setAttribute('data-theme', savedTheme);
+    darkToggle.textContent = savedTheme === 'dark' ? '☀️ light' : '🌙 dark';
+    darkToggle.addEventListener('click', () => {
+        const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        htmlEl.setAttribute('data-theme', next);
+        localStorage.setItem('kawaiiTheme', next);
+        darkToggle.textContent = next === 'dark' ? '☀️ light' : '🌙 dark';
     });
-    restoreMood();
-    renderList();
-    updateWC();
-  }
+    window.addEventListener('load', () => {
+        setTimeout(() => { loading.classList.add('loading-hidden'); wrapper.classList.add('visible'); }, 900);
+    });
 
-  function flushActive() {
-    if (!activeId) return;
-    var entry = getActive();
-    if (!entry) return;
-    entry.title   = document.getElementById("e-title").value;
-    entry.content = document.getElementById("e-area").value;
-    entry.updatedAt = new Date().toISOString();
-    var sel = document.querySelector(".mbtn.on");
-    if (sel) entry.mood = sel.dataset.m;
-    saveStore();
-  }
+    /* tracker data */
+    const pageData = [
+        { emoji:'🌈', desc:'A year in colour',  lastWord:'colour',  accent:'#FF3366', swatches:[
+            {color:'#FF3366',name:'🌟 Great day'},{color:'#FF8C42',name:'😊 Good day'},
+            {color:'#FFCA28',name:'😐 Okay day'},{color:'#4CAF50',name:'😞 Bad day'},
+            {color:'#2196F3',name:'😢 Sad day'},{color:'#9C27B0',name:'😤 Angry day'}]},
+        { emoji:'⭐', desc:'Rate my day',        lastWord:'day',     accent:'#FF8C00', swatches:[
+            {color:'#E53935',name:'⭐ 1 – terrible'},{color:'#FB8C00',name:'⭐⭐ 2 – bad'},
+            {color:'#FDD835',name:'⭐⭐⭐ 3 – okay'},{color:'#43A047',name:'⭐⭐⭐⭐ 4 – good'},
+            {color:'#1E88E5',name:'⭐⭐⭐⭐⭐ 5 – great'}]},
+        { emoji:'❤️', desc:'A year of health',  lastWord:'health',  accent:'#FF1744', swatches:[
+            {color:'#43A047',name:'💚 Well'},{color:'#FDD835',name:'🟡 Tired'},
+            {color:'#FB8C00',name:'🟠 Sick'},{color:'#E53935',name:'🔴 In Pain'},
+            {color:'#8BC34A',name:'⚡ Energetic'}]},
+        { emoji:'🧘', desc:'Wellness tracker',  lastWord:'tracker', accent:'#00BFA5', swatches:[
+            {color:'#B0BEC5',name:'✅ None'},{color:'#FDD835',name:'🤢 Nauseous'},
+            {color:'#FF7043',name:'🔴 Sore throat'},{color:'#E53935',name:'🌡️ Fever'},
+            {color:'#42A5F5',name:'🤧 Congested'},{color:'#78909C',name:'💨 Cough'},
+            {color:'#AB47BC',name:'😵 Dizzy'}]},
+        { emoji:'⚡', desc:'Energy tracker',    lastWord:'tracker', accent:'#FFD600', swatches:[
+            {color:'#78909C',name:'🔋 Low'},{color:'#FB8C00',name:'🔋🔋 Medium'},
+            {color:'#FFD600',name:'🔋🔋🔋 High'}]},
+        { emoji:'😴', desc:'Sleep tracker',     lastWord:'tracker', accent:'#304FFE', swatches:[
+            {color:'#FFEB3B',name:'😩 < 4 hrs'},{color:'#FF9800',name:'😪 4–5 hrs'},
+            {color:'#4CAF50',name:'🙂 5–6 hrs'},{color:'#2196F3',name:'😊 6–7 hrs'},
+            {color:'#3F51B5',name:'😌 7–8 hrs'},{color:'#1A237E',name:'😴 8–9 hrs'},
+            {color:'#0D0A2E',name:'💤 9+ hrs'}]},
+        { emoji:'😪', desc:'A year of naps',    lastWord:'naps',    accent:'#AA00FF', swatches:[
+            {color:'#ECEFF1',name:'❌ No nap'},{color:'#CE93D8',name:'💜 < 30 min'},
+            {color:'#AB47BC',name:'💜💜 30 min–1 hr'},{color:'#8E24AA',name:'💜💜💜 1–2 hrs'},
+            {color:'#6A1B9A',name:'💜💜💜💜 2–3 hrs'},{color:'#4A148C',name:'💜💜💜💜💜 3+ hrs'}]},
+        { emoji:'😰', desc:'Anxiety tracker',   lastWord:'tracker', accent:'#FF6D00', swatches:[
+            {color:'#A5D6A7',name:'🟢 Low'},{color:'#FFF176',name:'🟡 Mild'},
+            {color:'#FFAB40',name:'🟠 Moderate'},{color:'#EF5350',name:'🔴 High'},
+            {color:'#880E4F',name:'🟣 Severe'}]},
+        { emoji:'😥', desc:'Stress tracker',    lastWord:'tracker', accent:'#00C853', swatches:[
+            {color:'#A5D6A7',name:'🟢 Low'},{color:'#C5E1A5',name:'🟡 Mild'},
+            {color:'#FFCC02',name:'🟠 Moderate'},{color:'#FF5722',name:'🔴 High'},
+            {color:'#B71C1C',name:'🆘 Severe'}]},
+        { emoji:'🤕', desc:'Headache tracker',  lastWord:'tracker', accent:'#D50000', swatches:[
+            {color:'#E0E0E0',name:'✅ None'},{color:'#FFF9C4',name:'💛 Mild'},
+            {color:'#FFB74D',name:'🟠 Moderate'},{color:'#F4511E',name:'🔴 High'},
+            {color:'#B71C1C',name:'🆘 Severe'}]},
+        { emoji:'🩹', desc:'Pain tracker',      lastWord:'tracker', accent:'#00B0FF', swatches:[
+            {color:'#E0E0E0',name:'✅ No pain'},{color:'#4FC3F7',name:'💙 Back pain'},
+            {color:'#4DB6AC',name:'💚 Leg pain'},{color:'#FFB74D',name:'🟠 Stomach pain'},
+            {color:'#F06292',name:'💗 Cramps'},{color:'#CE93D8',name:'💜 Body pain'}]},
+        { emoji:'💼', desc:'How much work?',    lastWord:'work?',   accent:'#37474F', swatches:[
+            {color:'#CFD8DC',name:'0️⃣ None'},{color:'#90A4AE',name:'1️⃣ < 2 hrs'},
+            {color:'#607D8B',name:'2️⃣ 2–4 hrs'},{color:'#455A64',name:'3️⃣ 4–6 hrs'},
+            {color:'#263238',name:'4️⃣ 6–8 hrs'},{color:'#000000',name:'5️⃣ 8+ hrs'}]},
+        { emoji:'🛍️', desc:'Shopping tracker', lastWord:'tracker', accent:'#E040FB', swatches:[
+            {color:'#F8BBD9',name:'🏬 Mall'},{color:'#80DEEA',name:'🛒 Supermarket'},
+            {color:'#FF8A65',name:'📦 Amazon'},{color:'#AED581',name:'📚 School supplies'},
+            {color:'#FFD54F',name:'🍟 Fast food'},{color:'#CE93D8',name:'🌀 Other'},
+            {color:'#EEEEEE',name:'❌ None'}]},
+        { emoji:'☀️', desc:'Weather tracker',  lastWord:'tracker', accent:'#1565C0', swatches:[
+            {color:'#FFD600',name:'☀️ Sunny'},{color:'#FFA726',name:'⛅ Partly cloudy'},
+            {color:'#B0BEC5',name:'☁️ Cloudy'},{color:'#42A5F5',name:'🌧️ Rainy'},
+            {color:'#1565C0',name:'⛈️ Stormy'},{color:'#B3E5FC',name:'❄️ Snowy'},
+            {color:'#90A4AE',name:'🌫️ Foggy'},{color:'#80CBC4',name:'💨 Windy'}]},
+    ];
 
-  function saveEntry() {
-    flushActive();
-    renderList();
-    var msg = document.getElementById("save-msg");
-    msg.classList.add("show");
-    setTimeout(function () { msg.classList.remove("show"); }, 2000);
-  }
+    const MI = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+    const container  = document.getElementById('pagesContainer');
+    const todayDate  = new Date();
+    const currentDay = todayDate.getDate();
+    const currentMon = todayDate.getMonth();
 
-  function scheduleAuto() {
-    clearTimeout(autoTimer);
-    autoTimer = setTimeout(function () { flushActive(); renderList(); }, 1400);
-  }
+    /* persistence */
+    function loadColors() { try { return JSON.parse(localStorage.getItem('kawaiiColorsV3') || '{}'); } catch(e){ return {}; } }
+    function saveColors(o) { localStorage.setItem('kawaiiColorsV3', JSON.stringify(o)); }
+    let colorStore = loadColors();
 
-  function getActive() {
-    return entries.filter(function (e) { return e.id === activeId; })[0] || null;
-  }
+    /* popup state */
+    let openCell = null;
 
-  /* ===== RENDER LIST ===== */
-  function renderList() {
-    var el = document.getElementById("elist");
-    if (!entries.length) {
-      el.innerHTML = '<div class="elist-empty">no entries yet~<br>start writing!</div>';
-      return;
+    function closePopup() {
+        if (!openCell) return;
+        const p = openCell.querySelector('.color-popup');
+        if (p) p.classList.remove('open');
+        openCell.classList.remove('menu-open');
+        openCell = null;
     }
-    el.innerHTML = "";
-    entries.forEach(function (e) {
-      var d   = new Date(e.createdAt);
-      var ds  = d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
-      var nm  = e.title || "untitled entry...";
-      var div = document.createElement("div");
-      div.className = "eitem" + (e.id === activeId ? " sel" : "");
-      div.dataset.id = e.id;
-      div.innerHTML  =
-        '<div class="eitem-info">' +
-          '<div class="eitem-name">' + esc(nm) + '</div>' +
-          '<div class="eitem-date">' + ds + '</div>' +
-        '</div>' +
-        (e.mood ? '<span class="eitem-mood">' + e.mood + '</span>' : "");
-      div.addEventListener("click", function () { openEntry(e.id); });
-      el.appendChild(div);
-    });
-  }
 
-  /* ===== MOOD ===== */
-  function selectMood(btn) {
-    document.querySelectorAll(".mbtn").forEach(function (b) { b.classList.remove("on"); });
-    btn.classList.add("on");
-    if (activeId) {
-      var entry = getActive();
-      if (entry) { entry.mood = btn.dataset.m; saveStore(); renderList(); }
+    function togglePopup(cell) {
+        if (openCell === cell) { closePopup(); return; }
+        if (openCell) closePopup();
+        const popup = cell.querySelector('.color-popup');
+        if (!popup) return;
+        // flip below if near top of viewport
+        const rect = cell.getBoundingClientRect();
+        if (rect.top < 100) {
+            popup.classList.add('flip');
+        } else {
+            popup.classList.remove('flip');
+        }
+        openCell = cell;
+        cell.classList.add('menu-open');
+        requestAnimationFrame(() => requestAnimationFrame(() => popup.classList.add('open')));
     }
-  }
-  function restoreMood() {
-    var entry = getActive();
-    if (!entry) return;
-    document.querySelectorAll(".mbtn").forEach(function (b) {
-      b.classList.toggle("on", b.dataset.m === entry.mood);
+
+    /* close on outside click */
+    document.addEventListener('click', e => {
+        if (openCell && !openCell.contains(e.target)) closePopup();
+    }, true);
+
+    /* build popup */
+    function buildPopup(swatches, cell, pageIdx) {
+        const popup = document.createElement('div');
+        popup.className = 'color-popup';
+        const day = cell.dataset.day, mon = cell.dataset.month;
+
+        // erase
+        const erase = document.createElement('div');
+        erase.className = 'erase-dot'; erase.title = 'Clear'; erase.textContent = '✕';
+        erase.addEventListener('click', e => {
+            e.stopPropagation();
+            cell.style.backgroundColor = '';
+            cell.classList.remove('colored-cell');
+            delete colorStore[`${pageIdx}-${day}-${mon}`];
+            saveColors(colorStore);
+            closePopup();
+        });
+        popup.appendChild(erase);
+
+        swatches.forEach(s => {
+            const dot = document.createElement('div');
+            dot.className = 'color-dot';
+            dot.style.backgroundColor = s.color;
+            dot.title = s.name;
+            dot.addEventListener('click', e => {
+                e.stopPropagation();
+                cell.style.backgroundColor = s.color;
+                cell.classList.add('colored-cell');
+                colorStore[`${pageIdx}-${day}-${mon}`] = s.color;
+                saveColors(colorStore);
+                closePopup();
+            });
+            popup.appendChild(dot);
+        });
+
+        popup.addEventListener('click', e => e.stopPropagation());
+        return popup;
+    }
+
+    /* attach cells (called once per panel, after it opens) */
+    function attachCells(panel, swatches, pageIdx) {
+        panel.querySelectorAll('.grid-cell-excel').forEach(cell => {
+            if (cell._attached) return;
+            cell._attached = true;
+
+            const popup = buildPopup(swatches, cell, pageIdx);
+            cell.style.position = 'relative';
+            cell.appendChild(popup);
+
+            // restore colour
+            const key = `${pageIdx}-${cell.dataset.day}-${cell.dataset.month}`;
+            if (colorStore[key] && !cell.classList.contains('today-cell')) {
+                cell.style.backgroundColor = colorStore[key];
+                cell.classList.add('colored-cell');
+            }
+
+            cell.addEventListener('click', e => { e.stopPropagation(); togglePopup(cell); });
+        });
+    }
+
+    /* build all panels */
+    pageData.forEach((item, idx) => {
+        const div = document.createElement('div');
+        div.className = 'page'; div.setAttribute('data-page', idx);
+
+        const rest = item.desc.split(' ').slice(0,-1).join(' ');
+        const swatchHtml = item.swatches.map(s =>
+            `<div class="swatch-excel-item">
+                <div class="swatch-excel-color" style="background:${s.color}"></div>
+                <span class="swatch-excel-name">${s.name}</span>
+            </div>`).join('');
+
+        const hdr = `<div class="grid-header-excel"></div>` + MI.map(m=>`<div class="grid-header-excel">${m}</div>`).join('');
+        let rows = '';
+        for (let d = 1; d <= 31; d++) {
+            rows += `<div class="row-label-excel">${d}</div>`;
+            for (let m = 0; m < 12; m++) {
+                const t = (d===currentDay && m===currentMon) ? ' today-cell' : '';
+                rows += `<div class="grid-cell-excel${t}" data-day="${d}" data-month="${m}"></div>`;
+            }
+        }
+
+        div.innerHTML = `
+        <div class="page-inner">
+            <div class="panel-header">
+                <span class="panel-emoji">${item.emoji}</span>
+                <span class="panel-title">${item.desc}</span>
+            </div>
+            <div class="spreadsheet-panel">
+                <div class="excel-cell sentence-cell">
+                    ${rest} <span class="colored-word" style="background:${item.accent}">${item.lastWord}</span>
+                </div>
+                <div class="excel-cell grid-excel-cell">
+                    <div class="month-grid-excel">${hdr}${rows}</div>
+                </div>
+                <div class="excel-cell swatch-excel-cell">
+                    <div class="swatch-excel-grid">${swatchHtml}</div>
+                </div>
+                <button class="back-button-excel">🔙 back to journal</button>
+            </div>
+        </div>`;
+        container.appendChild(div);
     });
-  }
 
-  /* ===== STICKERS ===== */
-  function insertSticker(s) {
-    var ta = document.getElementById("e-area");
-    var st = ta.selectionStart, en = ta.selectionEnd, v = ta.value;
-    ta.value = v.slice(0, st) + " " + s + " " + v.slice(en);
-    ta.selectionStart = ta.selectionEnd = st + s.length + 2;
-    ta.focus();
-    scheduleAuto();
-  }
+    /* tracker buttons */
+    const pages = document.querySelectorAll('.page');
+    function closeAll() { pages.forEach(p => p.classList.remove('active-page')); closePopup(); }
 
-  /* ===== DELETE ===== */
-  function promptDelete() {
-    if (!activeId) return;
-    pendingDelId = activeId;
-    document.getElementById("modal-wrap").classList.add("open");
-  }
-  function closeModal() {
-    document.getElementById("modal-wrap").classList.remove("open");
-    pendingDelId = null;
-  }
-  function handleModalClick(evt) {
-    if (evt.target === document.getElementById("modal-wrap")) closeModal();
-  }
-  function doDelete() {
-    if (!pendingDelId) return;
-    entries = entries.filter(function (e) { return e.id !== pendingDelId; });
-    saveStore();
-    activeId = null;
-    document.getElementById("e-title").value = "";
-    document.getElementById("e-area").value  = "";
-    document.getElementById("e-date").textContent = "select an entry or start a new one";
-    document.getElementById("e-wc").textContent   = "";
-    closeModal();
-    renderList();
-    if (entries.length) openEntry(entries[0].id);
-  }
-
-  /* ===== EXPORT ===== */
-  function exportEntry() {
-    if (!activeId) return;
-    flushActive();
-    var entry = getActive();
-    if (!entry) return;
-    var nm   = entry.title || "untitled";
-    var date = new Date(entry.createdAt).toLocaleDateString();
-    var text = nm + "\n" + date + (entry.mood ? "  " + entry.mood : "") + "\n\n" + entry.content;
-    var blob = new Blob([text], { type: "text/plain" });
-    var url  = URL.createObjectURL(blob);
-    var a    = document.createElement("a");
-    a.href = url;
-    a.download = nm.replace(/[^a-z0-9]/gi, "_").toLowerCase() + ".txt";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
-
-  /* ===== WORD COUNT ===== */
-  function updateWC() {
-    var text  = document.getElementById("e-area").value.trim();
-    var words = text ? text.split(/\s+/).length : 0;
-    var el    = document.getElementById("e-wc");
-    el.textContent = words > 0 ? words + " word" + (words !== 1 ? "s" : "") : "";
-    el.className   = "e-wc" + (words > 0 ? " has" : "");
-  }
-
-  /* ===== UTIL ===== */
-  function esc(s) {
-    return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-  }
-
-  /* ===== INIT ===== */
-  function init() {
-    loadStore();
-    var saved = "cats";
-    try { saved = localStorage.getItem(THEME_KEY) || "cats"; } catch (e) {}
-    setTheme(saved, true);
-    renderList();
-    if (entries.length) openEntry(entries[0].id);
-
-    document.getElementById("e-area").addEventListener("input", function () { updateWC(); scheduleAuto(); });
-    document.getElementById("e-title").addEventListener("input", scheduleAuto);
-
-    document.addEventListener("keydown", function (e) {
-      if ((e.metaKey || e.ctrlKey) && e.key === "s") { e.preventDefault(); saveEntry(); }
+    document.querySelectorAll('.octa-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const idx = +btn.dataset.index, color = btn.dataset.color;
+            loading.classList.remove('loading-hidden'); wrapper.classList.remove('visible');
+            setTimeout(() => {
+                document.body.className = `theme-${color}`;
+                closeAll();
+                const target = document.querySelector(`.page[data-page="${idx}"]`);
+                if (target) {
+                    target.classList.add('active-page');
+                    setTimeout(() => {
+                        const panel = target.querySelector('.spreadsheet-panel');
+                        if (panel) attachCells(panel, pageData[idx].swatches, idx);
+                        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 200);
+                }
+                setTimeout(() => { loading.classList.add('loading-hidden'); wrapper.classList.add('visible'); }, 340);
+            }, 270);
+        });
     });
-    window.addEventListener("beforeunload", flushActive);
-    window.addEventListener("pagehide",     flushActive);
-  }
 
-  /* ===== GLOBAL EXPORTS ===== */
-  window.setTheme      = setTheme;
-  window.newEntry      = newEntry;
-  window.saveEntry     = saveEntry;
-  window.exportEntry   = exportEntry;
-  window.promptDelete  = promptDelete;
-  window.closeModal    = closeModal;
-  window.handleModalClick = handleModalClick;
-  window.doDelete      = doDelete;
+    container.addEventListener('click', e => {
+        if (!e.target.closest('.back-button-excel')) return;
+        loading.classList.remove('loading-hidden'); wrapper.classList.remove('visible');
+        setTimeout(() => {
+            closeAll(); document.body.className = 'theme-0';
+            document.querySelector('.calendar-section').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            loading.classList.add('loading-hidden'); wrapper.classList.add('visible');
+        }, 270);
+    });
 
-  init();
-}());
+    /* calendar */
+    const monthYearEl = document.getElementById('monthYearDisplay');
+    const daysGridEl  = document.getElementById('daysGrid');
+    const clockEl     = document.getElementById('liveClock');
+    let dispY = todayDate.getFullYear(), dispM = todayDate.getMonth();
+    const MNAMES = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+    function renderCal() {
+        const t = new Date();
+        const fd = new Date(dispY, dispM, 1).getDay();
+        const dm = new Date(dispY, dispM + 1, 0).getDate();
+        const dp = new Date(dispY, dispM, 0).getDate();
+        monthYearEl.textContent = `${MNAMES[dispM]} ${dispY}`;
+        let html = '';
+        for (let i = 0; i < fd; i++) html += `<span class="day-cell other-month">${dp - fd + i + 1}</span>`;
+        for (let d = 1; d <= dm; d++) {
+            const isT = d===t.getDate() && dispM===t.getMonth() && dispY===t.getFullYear();
+            html += `<span class="day-cell${isT?' today':''}">${d}</span>`;
+        }
+        const total = Math.ceil((fd + dm) / 7) * 7;
+        for (let n = 1; n <= total-(fd+dm); n++) html += `<span class="day-cell other-month">${n}</span>`;
+        daysGridEl.innerHTML = html;
+    }
+    function tick() {
+        const n = new Date(), pad = v => String(v).padStart(2,'0');
+        clockEl.textContent = `⏰ ${pad(n.getHours())}:${pad(n.getMinutes())}:${pad(n.getSeconds())}`;
+    }
+
+    document.getElementById('prevMonthBtn').addEventListener('click', () => { if(dispM===0){dispM=11;dispY--;}else dispM--; renderCal(); });
+    document.getElementById('nextMonthBtn').addEventListener('click', () => { if(dispM===11){dispM=0;dispY++;}else dispM++; renderCal(); });
+    document.querySelector('.month-year').addEventListener('click', () => { const n=new Date(); dispY=n.getFullYear(); dispM=n.getMonth(); renderCal(); });
+
+    renderCal(); tick(); setInterval(tick, 1000);
+})();
 </script>
 </body>
 </html>
